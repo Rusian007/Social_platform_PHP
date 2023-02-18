@@ -1,13 +1,16 @@
 <?php
 
 // requires the database connection file
-require '../../db config.php';
+require_once 'db config.php';
 
 
 
 
 // Class to handle form submission
-class SignUp_Controller {
+class RegistrationController {
+
+    public $location = "http://localhost/Social_platform_PHP/app/Views/";
+
 
     public function SignUpSubmit() {
 
@@ -57,7 +60,7 @@ class SignUp_Controller {
 			$conn->close();
 
             // Redirect to another page
-            header('Location: http://localhost/Social_platform_PHP/public/');
+            header('Location: '.$this->location.'SignUp.html.php');
             exit;
         }
 
@@ -66,12 +69,17 @@ class SignUp_Controller {
         	exit;
         }
     }
+    public function index() {
+
+        header('Location: '.$this->location.'SignUp.html.php');
+        exit;
+    }
 }
 
 
 // Instantiate the class and call the method to handle the form submit
-$formHandler = new SignUp_Controller();
-$formHandler->SignUpSubmit();
+//$formHandler = new SignUp_Controller();
+//$formHandler->SignUpSubmit();
 
 
 

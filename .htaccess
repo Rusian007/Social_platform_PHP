@@ -1,0 +1,11 @@
+#This line enables the URL rewriting engine in Apache, allowing you to modify the URL of incoming requests.
+
+RewriteEngine On 
+
+# check whether the requested filename or directory exists on the server
+#The !-f condition checks whether the requested filename does not exist, while the !-d condition checks whether the requested directory does not exist.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
