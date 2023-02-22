@@ -9,7 +9,7 @@ require_once 'db config.php';
 // Class to handle form submission
 class RegistrationController {
 
-    public $location = "http://localhost/Social_platform_PHP/app/Views/";
+    public $location = "/Social_platform_PHP/app/Views/";
 
 
     public function SignUpSubmit() {
@@ -47,7 +47,7 @@ class RegistrationController {
 			$password = mysqli_real_escape_string($conn, $password);
 
 			// generate an SQL to save in database
-            $sql = "INSERT INTO `user`(`username`, `password`, `email`) VALUES ('$name', '$email', '$password')";
+            $sql = "INSERT INTO `user`(`username`, `password`, `email`) VALUES ('$name', '$password', '$email')";
 
             // execute and check the query result
             if (mysqli_query($conn, $sql)) {

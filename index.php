@@ -1,5 +1,6 @@
 <?php
 require_once "app/Controllers/RegistrationController.php";
+require_once "app/Controllers/LoginController.php";
 
 $request_uri = $_SERVER['REQUEST_URI'];
 
@@ -9,7 +10,7 @@ $segments = explode('/', $request_uri);
 // second segment is the controller name
 // ucfirst  takes a string as an argument and returns the same string with the first character capitalized
 $controller_name = ucfirst($segments[2]) . 'Controller';
-
+//echo $controller_name;
 
 // third segment is the action name
 $action_name = isset($segments[3]) ? $segments[3] : null;
