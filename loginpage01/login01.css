@@ -1,0 +1,98 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+
+body{
+  margin:0;
+  padding:0;
+  background: url(6828.jpg);
+  background-size:cover;
+  font-family:'poppins';
+}
+
+.Login{
+  background-color: rgb(103,137,131,0.3);
+  width:450px;
+  height:480px;
+  margin: 0;
+  padding: 35px;
+  position:absolute;
+  top:50%;
+  left:70%;
+  box-sizing: border-box;
+  transform: translate(-50%,-50%);
+  border-radius: 20px;
+}
+h1{
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 35px;
+  text-align: center;
+  color: white;
+  user-select: none;
+}
+hr{
+  margin-bottom: 60px;
+  color: white;
+  width: 70%;
+}
+p{
+  margin:0;
+  padding: 0;
+  font-size: 18px;
+  color: white;
+  user-select: none;
+  margin-bottom: 15px;
+}
+p1{
+  font-size: 25px;
+  color: white;
+  user-select: none;
+}
+input{
+  width: 100%;
+  margin-bottom: 28px;
+  
+}
+.Login input[type="email"],input[type="password"]{
+  border: none;
+  border-bottom: 2px solid white;
+  background: transparent;
+  height: 35px;
+  outline: none;
+  font-size: 15px;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.Login input[type="submit"]{
+  border:none;
+  outline: none;
+  height: 30px;
+  background-color: rgb(194,222,209);
+  color:black;
+  font-size: 18px;
+  border-radius: 30px;
+  font-weight: bold;
+  width: 50%;
+  margin:0 auto;
+  display: block;
+  margin-top: 15px;
+}
+
+.Login input[type="submit"]:hover{
+  background-color:rgb(229, 176, 86);
+  color:white;
+  cursor: pointer;
+}
+.Login a{
+  text-decoration: underline;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  user-select: none;
+}
+

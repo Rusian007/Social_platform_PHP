@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login01.css"> <!--linking the stylesheet to the css file-->
+    <title>Login Page</title> <!--creating a title for the page-->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+    </style>
+</head>
+
+<body>
+    <p1>NSC Community Media</p1>
+  <div class="Login">
+    <h1>Login</h1>
+    <hr></hr>
+    <form>
+        <p>Email</p>
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <p>Password</p>
+        <input type="password" name="password" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+        <input type="submit" name="submit" value="Login" id="loginSubmit">
+        <a href="#" >Forgotten  password?</a>
+    </form>
+  </div>
+</body>
+</html>
