@@ -3,6 +3,7 @@
 :root {
   --black: #1A1A1A;
   --yellow: #FFCA1B;
+  --red: #FF4141;
 }
 
 *{
@@ -118,7 +119,7 @@ body{
 	align-items: center;
 }
 .btn-flex-container{
-	height: 405px;
+	height: 63vh;
 	display: flex;
 	justify-content: space-between;
 
@@ -130,4 +131,58 @@ body{
 	
 	flex: 1;
 	overflow: auto;
+}
+
+.post-container{
+	
+	flex: 1;
+	height: 90vh;
+	
+
+	overflow: auto;
+	margin: 0px 5px 0px 15px;
+	color: white;
+}
+.post-avatar{
+	width: 40px;
+  	height: 40px;
+}
+.image-section{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.post{
+	margin: 0 auto;
+	background: black;
+	padding: 15px 35px 20px 35px;
+	border-radius: 20px;
+	width: 45vw;
+	margin-bottom: 20px;
+}
+.post-hr{
+	height: 2px;
+  	background-color: var(--yellow);
+  	border: none;
+  	margin: 15px 0px 20px 0px;
+}
+.post-btn{
+	margin-top: 20px;
+
+}
+.post-btn button{
+	padding: 3px 10px 3px 5px;
+	
+	outline: none;
+	background: var(--black);
+	color: white;
+	transition: 0.4s;
+}
+
+.vote-btn-up:hover{
+	background: var(--red) !important;
+}
+.vote-btn-down:hover{
+	background: var(--yellow) !important;
 }
