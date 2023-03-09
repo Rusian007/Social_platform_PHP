@@ -11,6 +11,16 @@
 	margin: 0px;
 	font-family: 'Poppins', sans-serif;
 }
+
+
+@media only screen and (min-width: 500px) {
+  .navbar{
+  	display: none;
+  }
+}
+
+
+
 body{
 	background: var(--black);
 	overflow: hidden;
@@ -38,7 +48,7 @@ body{
 
 	align-self: center;
 	background: black;
-	width: 200px;
+	width: 240px;
 	height: 90vh;
  	transition: width 0.5s ease-in-out;
   	overflow: hidden;
@@ -86,14 +96,17 @@ body{
 	align-items: center;
 	margin: 50px 0px 10px 0px;
 }
+.btn-list button{
+	margin: 0px 0px 15px 0px;
+}
 .btn{
 	border: 0px;
 	border-radius: 10px;
 	outline: none;
-	padding: 10px 40px 10px 40px;
+	padding: 10px 38px 10px 38px;
 	background:var(--black) ;
 	color: var(--yellow);
-	margin: 0px 0px 15px 0px;
+	
 	transition: 0.5s;
 	font-weight: light;
 	font-size: 14px;
@@ -158,7 +171,7 @@ body{
 	background: black;
 	padding: 15px 35px 20px 35px;
 	border-radius: 20px;
-	width: 45vw;
+	max-width: 50vw;
 	margin-bottom: 20px;
 }
 .post-hr{
@@ -201,13 +214,60 @@ body{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 }
 .img-user h3{
 	margin-left: 15px;
 }
-.search-input{
-	width: 70%;
-	border:none;
-	padding: 10px;
-	background-color: var(--yellow);
+.navbar nav{
+	display: flex;
+	padding: 14px;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+
+	background-color: black;
+	border-radius: 15px;
+	border: 2px solid var(--yellow);
+	margin: 20px;
 }
+.navbar nav h3{
+	color: white;
+}
+
+@media only screen and (max-width: 500px) {
+  .left {
+    display: none;
+  }
+  .navbar{
+  	display: block;
+  }
+  .navbar nav h3{
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.buttons button{
+	padding: 8px 30px 8px 30px;
+	margin-right: 3px;
+
+	 	
+}
+}
+
+@media only screen and (max-width: 384px) {
+
+.buttons button{
+	padding: 8px 25px 8px 25px;
+		 margin-right: 2px;	
+}
+
+}
+@media only screen and (max-width: 360px) {
+
+.buttons button{
+	padding: 10px 22px 10px 22px;
+		 margin-right: 2px;	
+}
+
+}
+
