@@ -1,10 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-:root {
-  --black: #1A1A1A;
-  --yellow: #FFCA1B;
-  --red: #FF4141;
-}
+
 
 *{
 	padding: 0px;
@@ -12,28 +8,24 @@
 	font-family: 'Poppins', sans-serif;
 }
 body{
-	background: var(--black);
+	background: #1A1A1A;
 
 }
 
 .nav-container{
 	margin: 25px 25px 20px 25px;
-	position: -webkit-sticky; /* Safari */
+	position: -webkit-sticky; 
   	position: sticky;
   	top: 15px;
 
 }
-.links{
 
-    
-	
-}
 
 nav{
 	padding: 10px 20px 10px 20px;
-	background-color: black;
+	background-color: #1A1A1A;
 	border-radius: 17px;
-	border: 2px solid var(--yellow);
+	border: 2px solid #FFCA1B;
 	color: white;
 
 	display: flex;
@@ -46,16 +38,16 @@ nav{
 	border-radius: 10px;
 	outline: none;
 	padding: 10px 24px 10px 24px;
-	background:var(--black) ;
-	color: var(--yellow);
+	background:#1A1A1A;
+	color: #FFCA1B;
 	margin: 2px 5px 2px 2px;
 	transition: 0.5s;
 	font-weight: bold;
 	font-size: 13px;
 }
 .btn:hover{
-	background:var(--yellow) ;
-	color: var(--black);
+	background:#FFCA1B; 
+	color:#1A1A1A;
 }
 
 
@@ -83,7 +75,7 @@ nav{
 }
 
 .btn-red{
-	background:var(--red) ;
+	background: #FF4141;
 	color: white;
 	font-weight: bold;
 }
@@ -100,10 +92,10 @@ nav{
 
 @media only screen and (max-width: 600px) {
 	.avatar {
-  
+
   			width: 100px;
   			height: 100px;
-  
+
 }
 	.user-name h1{
 		font-size: 25px;
@@ -124,7 +116,7 @@ nav{
 
 
 .post-container{
-	
+
 	margin: 25px 10px 0px 10px;
 	color: white;
 	display: flex;
@@ -153,7 +145,7 @@ nav{
 }
 .post-hr{
 	height: 2px;
-  	background-color: var(--yellow);
+  	background-color: #FFCA1B;
   	border: none;
   	margin: 15px 0px 20px 0px;
 }
@@ -164,9 +156,9 @@ nav{
 }
 .post-btn button{
 	padding: 3px 10px 3px 5px;
-	
+
 	outline: none;
-	background: var(--black);
+	background: #1A1A1A;
 	color: white;
 	transition: 0.4s;
 }
@@ -183,10 +175,10 @@ nav{
 }
 
 .vote-btn-up:hover{
-	background: var(--red) !important;
+	background: #FF4141 !important;
 }
 .vote-btn-down:hover{
-	background: var(--yellow) !important;
+	background:#FFCA1B !important;
 }
 .img-user{
 	display: flex;
@@ -199,8 +191,13 @@ nav{
 }
 
 @media only screen and (max-width: 600px) {
-	
+
 	.post{
 		width: 70vw;
 	}
 }
+
+
+
+
+
