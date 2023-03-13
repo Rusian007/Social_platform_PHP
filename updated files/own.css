@@ -1,0 +1,171 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root {
+  --black: #1A1A1A;
+  --yellow: #FFCA1B;
+  --red: #FF4141;
+}
+
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: 'Poppins', sans-serif;
+}
+body{
+	background: var(--black);
+	overflow: hidden;
+}
+
+.container{
+	height: 100vh;
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+}
+
+.padding{
+	padding: 7px 5px 5px 5px;
+}
+.padding-remove{
+	padding: 0px;
+}
+
+/*  Left side  */
+
+.left{
+
+	margin-left: 1.5%;
+
+	align-self: center;
+	background: black;
+	width: 290px;
+	height: 90vh;
+ 	transition: width 0.5s ease-in-out;
+  	overflow: hidden;
+
+  	border: 3px solid var(--yellow);
+  	border-radius: 17px;
+
+  	
+
+}
+
+
+.cancel-icon{
+	text-align: right;
+}
+.img{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+.avatar {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.user-name{
+	text-align: center;
+	color: white;
+    margin-top: 5%;
+}
+
+.yellow{
+	color: var(--yellow);
+}
+
+.btn-list{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 50px 0px 10px 0px;
+}
+.btn{
+	border: 0px;
+	border-radius: 10px;
+	outline: none;
+	padding: 10px 35px 10px 35px;
+	background:var(--black) ;
+	color: var(--yellow);
+	margin: 0px 0px 15px 0px;
+	transition: 0.5s;
+	font-weight: light;
+	font-size: 14px;
+}
+.btn-red{
+	background: #FF4141 ;
+	color: white;
+}
+.btn-red:hover{
+	opacity: 50%;
+	background:#FF4141 !important ;
+}
+
+.btn:hover{
+	background: var(--yellow);
+	color: var(--black);
+}
+
+.logout-btn{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.btn-flex-container{
+	height: 63vh;
+	display: flex;
+	justify-content: space-between;
+
+	flex-direction: column;
+}
+
+/*  Right side  */
+.right{
+	
+	flex: 1;
+	overflow: auto;
+}
+.post-name{
+    margin-top: 2%;
+	margin-left: 17%;
+	color: white;
+   
+}
+.post-container{
+	
+	flex: 1;
+	height: 90vh;
+	
+
+	overflow: auto;
+	margin: 0px 5px 0px 15px;
+	
+}
+
+
+.post{
+	margin: 0 auto;
+	background: black;
+	padding: 15px 35px 20px 35px;
+	border-radius: 20px;
+    height: 15vw;
+	width: 45vw;
+    margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+
+
+.post-btn button{
+	padding: 3px 10px 3px 5px;
+	
+	outline: none;
+	background: var(--black);
+	color: white;
+	transition: 0.4s;
+}
+
+

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Own Post</title>
+	<link rel="stylesheet" type="text/css" href="own.css">
+</head>
+<body>
+
+	<div class="container">
+
+		<div id="left" class="left padding">
+
+			<div class="cancel-icon">
+				<i onclick="Drawer()" style="color: #FF4141; margin-left: 5px; " class="fi-cnsuxl-times-solid"></i>
+			</div>
+
+			<div class="img">
+				<img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+			</div>
+
+			<div class="user-name">
+				<h3>Rusian's Profile</h3>
+                <h5>rasian@gmail.com</h5>
+			</div>
+
+			
+
+			<div class="btn-flex-container">
+				
+			<div class="btn-list">
+                <div class="logout-btn">
+                    <button class=" btn btn-red">
+                        Upload
+                </div>
+
+				<button class="profile-btn btn">
+				Delete Profile
+				</button>
+
+				<button class="create-btn btn">
+				 Update	Profile
+				</button>
+			</div>
+
+			<div class="logout-btn">
+				<button class=" btn btn-red">
+					Go back
+				</button>
+			</div>
+			
+			</div>
+
+		</div>
+
+		<i onclick="Drawer()" style="color: #FFCA1B; margin-left: 5px;" id="open-icon" class="fi-cwsrxx-arrow-solid"></i>
+
+		<div  class="right">
+            <div class="post-name">
+				<h3>My posts</h3>
+               
+			</div>
+			
+			<!-- Replicable -->
+
+			<div class="post-container">
+				
+				<!-- Post start -->
+				<div class="post">
+					
+
+					<div class="post-content">
+						
+					</div>
+
+					
+					
+				</div>
+				<!-- Post end -->
+
+
+					<!-- Post start -->
+                    <div class="post">
+					
+
+                        <div class="post-content">
+                           
+                        </div>
+    
+                        <div class="post-btn">
+                            
+                            
+                        </div>
+                        
+                    </div>
+				<!-- Post end -->
+
+
+
+
+
+
+			</div>	
+
+		</div>
+
+	</div>
+	</body>
+
+	<script defer src="https://friconix.com/cdn/friconix.js"> </script>
+
+	<script type="text/javascript">
+
+		var IsOpen = true;
+		document.getElementById('open-icon').style.display = 'none';
+
+		function Drawer(){
+			if(IsOpen){
+				// hide
+				document.getElementById('left').style.width = '0px';
+
+				document.getElementById('left').classList.remove('padding');
+				document.getElementById('left').classList.add('padding-remove');
+
+				document.getElementById('open-icon').style.display = 'block';
+				IsOpen = false;
+			} else{
+				// Show the div
+  				document.getElementById('left').style.width = '200px';
+
+  				document.getElementById('left').classList.remove('padding-remove');
+				document.getElementById('left').classList.add('padding');
+
+  				document.getElementById('open-icon').style.display = 'none';
+  				IsOpen = true;
+			}
+
+		}
+		
+		
+
+	</script>
+</html>
