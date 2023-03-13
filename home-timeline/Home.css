@@ -104,7 +104,9 @@ body {
 }
 .btn-red {
   background: #ff4141;
+    border: none;
   color: white;
+    transition: 0.5s;
 }
 .btn-red:hover {
   opacity: 50%;
