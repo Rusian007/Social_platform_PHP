@@ -13,12 +13,12 @@ class LoginController{
             $conn = $handle->connect();
 
 			// Get form data
-            $name =$_POST['username'];
+            $email =$_POST['username'];
             $password = $_POST['password'];
 
            
 
-            $sql= "SELECT `username`, `password` FROM `user` WHERE `username` = '$name';";
+            $sql= "SELECT `username`, `password` FROM `users` WHERE `email` = '$email';";
 
             $result = $conn->query($sql); // execute the query
 
@@ -26,9 +26,14 @@ class LoginController{
 			if (mysqli_num_rows($result) > 0) {
     		
     		$row = $result->fetch_assoc(); //get row in an array -_-!
-   			 if($row['password'] == $password)
-   			 	echo "Logged in successfully !";
-   			 else echo "Password do not match :(";
+   			 if(password_verify($password, $row['password']))
+             { 	echo "Logged in successfully !";
+                header('Location: '.'/Social_platform_PHP/app/Views/home/Home.html.php');
+            }
+   			 else {
+              echo "Password do not match :(";   
+                
+             }
    			 // close database connection
 			$conn->close();
    			 exit;

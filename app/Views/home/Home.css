@@ -1,0 +1,372 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+:root {
+  --black: #1a1a1a;
+  --yellow: #ffca1b;
+  --red: #ff4141;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Poppins", sans-serif;
+}
+
+@media only screen and (min-width: 500px) {
+  .navbar {
+    display: none;
+  }
+}
+
+body {
+  background: var(--black);
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.padding {
+  padding: 7px 5px 5px 5px;
+}
+.padding-remove {
+  padding: 0px;
+}
+
+/*  Left side  */
+
+.left {
+  margin-left: 1.5%;
+
+  align-self: center;
+  background: black;
+  width: 240px;
+  height: 90vh;
+  transition: width 0.5s ease-in-out;
+  overflow: hidden;
+
+  border: 3px solid var(--yellow);
+  border-radius: 17px;
+}
+
+.cancel-icon {
+  text-align: right;
+}
+.img {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.avatar {
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.user-name {
+  text-align: center;
+  color: white;
+}
+.votes {
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.yellow {
+  color: var(--yellow);
+}
+
+.btn-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px 10px 0px;
+}
+.btn-list button {
+  margin: 0px 0px 15px 0px;
+}
+.btn {
+  border: 0px;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px 38px 10px 38px;
+  background: var(--black);
+  color: var(--yellow);
+
+  transition: 0.5s;
+  font-weight: light;
+  font-size: 14px;
+}
+.btn-red {
+  background: #ff4141;
+    border: none;
+  color: white;
+    transition: 0.5s;
+}
+.btn-red:hover {
+  opacity: 50%;
+  background: #ff4141 !important ;
+}
+
+.btn:hover {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.logout-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.btn-flex-container {
+  height: 63vh;
+  display: flex;
+  justify-content: space-between;
+
+  flex-direction: column;
+}
+
+/*  Right side  */
+.right {
+  flex: 1;
+  overflow: auto;
+}
+
+.post-container {
+  flex: 1;
+  height: 90vh;
+
+  overflow: auto;
+  margin: 0px 5px 0px 15px;
+  color: white;
+}
+.post-avatar {
+  width: 40px;
+  height: 40px;
+}
+.image-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post {
+  margin: 0 auto;
+  background: black;
+  padding: 15px 35px 20px 35px;
+  border-radius: 20px;
+  max-width: 50vw;
+  margin-bottom: 20px;
+}
+.post-hr {
+  height: 2px;
+  background-color: var(--yellow);
+  border: none;
+  margin: 15px 0px 20px 0px;
+}
+.post-btn {
+  margin-top: 20px;
+}
+.post-btn button {
+  padding: 3px 10px 3px 5px;
+
+  outline: none;
+  background: var(--black);
+  color: white;
+  transition: 0.4s;
+}
+
+.vote-btn-up {
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+.vote-btn-down {
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+
+.vote-btn-up:hover {
+  background: var(--red) !important;
+}
+.vote-btn-down:hover {
+  background: var(--yellow) !important;
+}
+.img-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-user h3 {
+  margin-left: 15px;
+}
+.navbar nav {
+  display: flex;
+  padding: 14px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+
+  background-color: black;
+  border-radius: 15px;
+  border: 2px solid var(--yellow);
+  margin: 20px;
+}
+.navbar nav h3 {
+  color: white;
+}
+/* modal css starts here*/
+.p-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal-content {
+  z-index: 1;
+  background-color: rgb(0, 0, 0, 0.9);
+  padding: 5rem;
+  width: 50%;
+  border-radius: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px orange solid;
+  margin-bottom: 2rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  padding: 5px 10px;
+  align-self: self-end;
+}
+.post-content {
+  display: flex;
+  flex-direction: column;
+}
+#textArea {
+  width: auto;
+  border-radius: 1rem;
+  max-height: 5rem;
+  font-size: 1.4rem;
+  padding: 2rem 2rem;
+  word-break: break-all;
+  margin-bottom: 1rem;
+  resize: none;
+}
+
+.modalBtns {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: auto;
+  border-radius: 1rem;
+}
+.modalBtns button{
+    border:none;
+}
+.submit {
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  background-color: orange;
+  color: white;
+}
+.submit:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.user-info {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.media-display {
+  border: 2px dashed rgb(0, 0, 0);
+  width: calc(100% - 4rem);
+  border-radius: 2rem;
+  overflow: hidden;
+  background-color: rgb(234, 234, 234);
+  color: black;
+  padding: 2rem;
+}
+#file {
+  display: none;
+}
+.media-display img {
+  height: 10rem;
+  width: 10rem;
+}
+
+/*modal css ends*/
+
+@media only screen and (max-width: 500px) {
+  .left {
+    display: none;
+  }
+  .navbar {
+    display: block;
+  }
+  .navbar nav h3 {
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+  .buttons button {
+    padding: 8px 30px 8px 30px;
+    margin-right: 3px;
+  }
+
+  /*modal css 8*/
+  .modal-content textarea {
+    font-size: 1rem;
+  }
+  .media-display img {
+    height: 5rem;
+    width: 5rem;
+  }
+  /*ends*/
+}
+
+@media only screen and (max-width: 384px) {
+  .buttons button {
+    padding: 8px 25px 8px 25px;
+    margin-right: 2px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .buttons button {
+    padding: 10px 22px 10px 22px;
+    margin-right: 2px;
+  }
+}

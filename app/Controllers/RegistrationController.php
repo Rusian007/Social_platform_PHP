@@ -25,7 +25,7 @@ class RegistrationController {
             $password = $_POST['password'];
 
             // Check if the user already exists
-           	$sql = " SELECT * FROM `user` WHERE `username` = '$name'";
+           	$sql = " SELECT * FROM `users` WHERE `username` = '$name'";
 			$result = $conn->query($sql); // execute the query
 
 			// Check if there are any rows returned
@@ -45,9 +45,12 @@ class RegistrationController {
 			$name = mysqli_real_escape_string($conn, $name);
 			$email = mysqli_real_escape_string($conn, $email);
 			$password = mysqli_real_escape_string($conn, $password);
+            $hash = password_hash($password, PASSWORD_DEFAULT); // use bcrypt algorithm by default
+            $password = $hash;
+            $joined = date('Y-m-d');
 
 			// generate an SQL to save in database
-            $sql = "INSERT INTO `user`(`username`, `password`, `email`) VALUES ('$name', '$password', '$email')";
+            $sql = "INSERT INTO `users`(`username`, `password`, `email`, `date_joined`) VALUES ('$name', '$password', '$email', $joined)";
 
             // execute and check the query result
             if (mysqli_query($conn, $sql)) {
@@ -60,7 +63,7 @@ class RegistrationController {
 			$conn->close();
 
             // Redirect to another page
-            header('Location: '.$this->location.'SignUp.html.php');
+            header('Location: '.$this->location.'home/Home.html.php');
             exit;
         }
 
@@ -71,7 +74,7 @@ class RegistrationController {
     }
     public function index() {
 
-        header('Location: '.$this->location.'SignUp.html.php');
+        header('Location: '.$this->location.'signup/signup.html.php');
         exit;
     }
 }
