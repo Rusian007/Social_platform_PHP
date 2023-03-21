@@ -22,6 +22,9 @@ body {
   overflow: hidden;
 }
 
+
+
+
 .container {
   height: 100vh;
   display: flex;
@@ -369,4 +372,42 @@ a {
     padding: 10px 22px 10px 22px;
     margin-right: 2px;
   }
+}
+
+
+/* Notification Styles  */
+
+.notification{
+  position: absolute;
+  top: 10px;
+  background: var(--black);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  animation: slideInAndOut ease-in-out 6s forwards;
+}
+.notification h3{
+  font-size: 17px;
+  color: var(--yellow);
+}
+.vertical-line{
+  width: 10px;
+  margin-left: 22px;
+  background: var(--yellow);
+}
+@keyframes slideInAndOut {
+0% {
+  left : -500px;
+}
+50% {
+  left : 0px;
+}
+  75%{
+      left : 0px;
+  }
+100% {
+  left : -500px;
+  display: none;
+    visibility: hidden;
+}
 }

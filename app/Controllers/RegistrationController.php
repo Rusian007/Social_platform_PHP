@@ -10,6 +10,55 @@ require_once 'db config.php';
 class RegistrationController {
 
     public $location = "/Social_platform_PHP/app/Views/";
+    
+    public function LoginSubmit(){
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+			// create a new Database connection
+            $handle = new db();
+            $conn = $handle->connect();
+
+			// Get form data
+            $email =$_POST['email'];
+            $password = $_POST['password'];
+
+           
+
+            $sql= "SELECT `user_id`, `username`, `password` FROM `users` WHERE `email` = '$email';";
+
+            $result = $conn->query($sql); // execute the query
+
+            // Check if there are any rows returned
+			if (mysqli_num_rows($result) > 0) {
+    		
+    		$row = $result->fetch_assoc(); //get row in an array -_-!
+   			 if(password_verify($password, $row['password']))
+             { 	echo "Logged in successfully !";
+                session_start();
+              $_SESSION['logged_in'] = true;
+              $_SESSION['username'] = $row['username'];
+              $_SESSION['uid'] = $row['user_id'];
+              $_SESSION['email'] = $email;
+                header('Location: '.'/Social_platform_PHP/home/index');
+            }
+   			 else {
+                header('Location: '.$this->location.'signup/signup.html.php?error=Password do not match 😔');   
+                
+             }
+   			 // close database connection
+			$conn->close();
+   			 exit;
+
+    		} else {
+    			 header('Location: '.$this->location.'signup/signup.html.php?error=User does not exist 😭');
+    			$conn->close();
+   			 exit;
+    		}
+
+		} else {
+			echo "Invalid Request! 😭";
+		}
+	}
 
 
     public function SignUpSubmit() {
@@ -32,7 +81,8 @@ class RegistrationController {
 			if (mysqli_num_rows($result) > 0) {
     		
     		//$row = $result->fetch_assoc();
-   			 echo "User already exists";
+   			  echo header('Location: '.$this->location.'signup/signup.html.php?error=User already exists');
+
    			 // close database connection
 			$conn->close();
    			 exit;
@@ -56,7 +106,7 @@ class RegistrationController {
             if (mysqli_query($conn, $sql)) {
    				 echo "New record created successfully";
 			} else {
-   				 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+   				 echo header('Location: '.$this->location.'signup/signup.html.php?error=try again later');
 			}
 
 			// close database connection
@@ -80,9 +130,7 @@ class RegistrationController {
 }
 
 
-// Instantiate the class and call the method to handle the form submit
-//$formHandler = new SignUp_Controller();
-//$formHandler->SignUpSubmit();
+
 
 
 

@@ -1,3 +1,7 @@
+ <?php 
+      
+       session_start();
+      ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,6 +11,43 @@
     <link rel="stylesheet" type="text/css" href="Home.css" />
   </head>
   <body>
+
+
+   
+ <?php
+    
+    if (isset($_GET['notice'])) {
+      $paramValue = $_GET['notice'];
+      echo '<div class="notification">
+              <h3>' . $paramValue . '</h3>
+              <div class="vertical-line"></div>
+            </div>';
+    }
+  ?>
+
+   <?php 
+      
+       if(!isset($_SESSION['logged_in']))
+         {
+		  header('Location: '.'/Social_platform_PHP/registration/index');
+		  exit;
+         } else{
+          require_once '../../../db config.php';
+
+          // create a new Database connection
+          $handle = new db();
+          $conn = $handle->connect();
+
+          $result = $conn->query('SELECT * FROM `posts`');
+
+          // Fetch data
+          $posts = [];
+          while ($row = $result->fetch_assoc()) {
+              $posts[] = $row;
+          }
+
+         }
+      ?>
     <!--Modal starts here-->
     <div class="p-modal" id="p-modal">
       <div class="modal-content" id="modal-content" data-backdrop="static">
@@ -15,7 +56,7 @@
           <a href="#" class="close-btn" id="close-btn">X</a>
         </div>
 
-        <form class="modal-body">
+        <form method="post" action="/Social_platform_PHP/home/createPost" class="modal-body">
           <div class="post-content">
             <textarea
               id="textArea"
@@ -27,6 +68,8 @@
 
             <div class="media-display">
               <input type="file" id="file" accept="image/*" />
+              <input type="hidden" name="uid" value="<?php echo $_SESSION['uid']; ?>" />
+
               <label for="file">
                 <img src="upload.png" alt="error" />
                 <h3>Upload picture</h3>
@@ -53,7 +96,7 @@
           <button class="create-btn btn" id="create-post-btn-2"><i class="fi-cwsuxl-plus-solid"></i></button>
 
           <button onclick="OnSearchClick()" class="create-btn btn"><i class="fi-xnsuxl-search"></i></button>
-            <button class="create-btn btn-red"><i class="fi-xnsuxl-sign-out-solid"></i></button>
+            <button onclick="logout()" class="create-btn btn-red"><i class="fi-xnsuxl-sign-out-solid"></i></button>
         </div>
       </nav>
     </div>
@@ -77,7 +120,11 @@
         </div>
 
         <div class="user-name">
-          <h3>Rusian's Profile</h3>
+          <h3>
+              <?php 
+              echo $_SESSION['username'];
+              ?>
+          </h3>
         </div>
 
         <div class="votes">
@@ -95,7 +142,7 @@
           </div>
 
           <div class="logout-btn">
-            <button class="btn btn-red">Logout</button>
+            <button onclick="logout()" class="btn btn-red">Logout</button>
           </div>
         </div>
       </div>
@@ -111,8 +158,13 @@
         <!-- Replicable -->
 
         <div class="post-container">
-          <!-- Post start -->
-          <div class="post">
+          <?php 
+           foreach ($posts as $post) {
+
+            $result = $conn->query('SELECT `username` FROM `users` WHERE user_id = '.$post['user_id']);
+            $row = $result->fetch_assoc(); //get the username
+
+        echo'  <div class="post">
             <div class="image-section">
               <div class="img-user">
                 <img
@@ -120,7 +172,7 @@
                   alt="Avatar"
                   class="avatar post-avatar"
                 />
-                <h3>Rusian</h3>
+                <h3>'. $row['username']  .' </h3>
               </div>
 
               <i class="fi-xwsrxx-ellipsis"></i>
@@ -129,62 +181,26 @@
             <hr class="post-hr" />
 
             <div class="post-content">
-              <h3>Some Post Title</h3>
-              <p>This is a normal post</p>
+              <h3></h3>
+              <p>'. $post['post_text'] .'</p>
             </div>
 
             <div class="post-btn">
               <button class="vote-btn-up" style="margin-right: 4px">
                 <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
-                Upvote
+                '. $post['upvote_count'] . '
               </button>
 
               <button class="vote-btn-down">
                 <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
-                Downvote
+                '. $post['downvote_count'] . '
               </button>
             </div>
-          </div>
-          <!-- Post end -->
-
-          <!-- Post start -->
-          <div class="post">
-            <div class="image-section">
-              <div class="img-user">
-                <img
-                  src="https://www.w3schools.com/howto/img_avatar2.png"
-                  alt="Avatar"
-                  class="avatar post-avatar"
-                />
-                <h3>Kawsaar</h3>
-              </div>
-
-              <i class="fi-xwsrxx-ellipsis"></i>
-            </div>
-
-            <hr class="post-hr" />
-
-            <div class="post-content">
-              <h3>Random Post</h3>
-              <p>
-                This is an example of post, all data will come from database,
-                stay tuned!!!! Until next update- Post is complete
-              </p>
-            </div>
-
-            <div class="post-btn">
-              <button class="vote-btn-up" style="margin-right: 4px">
-                <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
-                Upvote
-              </button>
-
-              <button class="vote-btn-down">
-                <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
-                Downvote
-              </button>
-            </div>
-          </div>
-          <!-- Post end -->
+          </div>';
+          
+           }
+        ?>
+       
         </div>
       </div>
     </div>
@@ -267,7 +283,7 @@
     });
   </script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js"></script>
 <script type="text/javascript">
 
   function OnProfileClick(){
@@ -277,6 +293,18 @@
   function OnSearchClick(){
     window.location.href='../search/search.html'
   }
+    
+    function logout(){
+        axios.get('http://localhost/Social_platform_PHP/home/logout')
+        .then(function (response) {
+            // handle success
+            location.reload();
+        })
+            .catch(function (error) {
+            // handle error
+            console.log(error);
+        });
+    }
 </script>
 
 

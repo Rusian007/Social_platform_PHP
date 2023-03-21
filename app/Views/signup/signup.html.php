@@ -21,6 +21,18 @@
 </head>
 
 <body>
+   
+ <?php
+    
+  if (isset($_GET['error'])) {
+    $paramValue = $_GET['error'];
+    echo '<div class="notification">
+            <h3>' . $paramValue . '</h3>
+            <div class="vertical-line"></div>
+          </div>';
+  }
+?>
+    
 
     <div class="header">
         <div class="logo">
@@ -82,14 +94,14 @@
             </div>
         </form>
 
-        <form action="/Social_platform_PHP/login/LoginSubmit" method="post"  class="right-part container" id="login-form">
+        <form action="/Social_platform_PHP/registration/LoginSubmit" method="post"  class="right-part container" id="login-form">
             <div>
                 <h2 class="signupHeader">Login</h2>
             </div>
 
             <div class="input-container email">
                 <label for="email">Email</label>
-                <input id="email" name="username" type="email" placeholder="Enter your email" autocomplete="off" required>
+                <input id="email" name="email" type="email" placeholder="Enter your email" autocomplete="off" required>
             </div>
             <div class="input-container password">
                 <label for="password">Password</label>
