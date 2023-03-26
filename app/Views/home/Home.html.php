@@ -58,6 +58,8 @@
 
         <form method="post" action="/Social_platform_PHP/home/createPost" class="modal-body">
           <div class="post-content">
+
+          <input type="text" id="input-title" name="title" placeholder="Title*" required />
             <textarea
               id="textArea"
               name="textArea"
@@ -161,8 +163,11 @@
           <?php 
            foreach ($posts as $post) {
 
-            $result = $conn->query('SELECT `username` FROM `users` WHERE user_id = '.$post['user_id']);
-            $row = $result->fetch_assoc(); //get the username
+            $userInfo = $conn->query('SELECT `username` FROM `users` WHERE user_id = '.$post['user_id']);
+            $user = $userInfo->fetch_assoc(); //get the username
+
+            $reactionInfo = $conn->query ('SELECT `reaction_type` FROM `reactions` WHERE `post_id` = '.$post['post_id'].' AND `user_id` = '.$_SESSION['uid']);
+            $reaction = $reactionInfo->fetch_assoc();
 
         echo'  <div class="post">
             <div class="image-section">
@@ -172,7 +177,7 @@
                   alt="Avatar"
                   class="avatar post-avatar"
                 />
-                <h3>'. $row['username']  .' </h3>
+                <h3>'. $user['username']  .' </h3>
               </div>
 
               <i class="fi-xwsrxx-ellipsis"></i>
@@ -181,22 +186,67 @@
             <hr class="post-hr" />
 
             <div class="post-content">
-              <h3></h3>
+              <h3> '.$post['post_title'].' </h3>
               <p>'. $post['post_text'] .'</p>
             </div>
-
             <div class="post-btn">
-              <button class="vote-btn-up" style="margin-right: 4px">
-                <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
-                '. $post['upvote_count'] . '
-              </button>
+              ';
+            if(is_null($reaction) || is_null($reaction['reaction_type'])){
+          
 
-              <button class="vote-btn-down">
-                <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
-                '. $post['downvote_count'] . '
-              </button>
-            </div>
-          </div>';
+                echo ' 
+                <button id="upvoteBtn_'.$post['post_id'].'" onclick="addUpvote(event, this, '.$_SESSION['uid'].','.$post['post_id'].')" class="vote-btn-up" style="margin-right: 4px">
+                  <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
+                  <span id="Upspan_'.$post['post_id'].'" >  '. $post['upvote_count'] . ' </span>
+                </button>
+  
+                <button id="downvoteBtn_'.$post['post_id'].'" onclick="addDownvote(event, this, '.$_SESSION['uid'].','.$post['post_id'].')" class="vote-btn-down">
+                  <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
+                  <span id="Downspan_'.$post['post_id'].'" >'. $post['downvote_count'] . '</span>
+                </button>
+              ';
+            
+            }
+               else if(intval($reaction['reaction_type']) === 1){
+                // if type is 1 it means Upvote
+                //User has upvoted in this post
+                // disable downvote btn 
+                $button_on = "light";
+                $button_off = "gray";
+
+                echo ' 
+                <button id="upvoteBtn_'.$post['post_id'].'" onclick="addUpvote(event, this, '.$_SESSION['uid'].','.$post['post_id'].')" class="vote-btn-up '.$button_on.'" style="margin-right: 4px">
+                  <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
+                  <span id="Upspan_'.$post['post_id'].'" >  '. $post['upvote_count'] . ' </span>
+                 
+                </button>
+  
+                <button id="downvoteBtn_'.$post['post_id'].'" disabled onclick="addDownvote(event, this, '.$_SESSION['uid'].','.$post['post_id'].')" class=" vote-btn-down '.$button_off.'">
+                  <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
+                  <span id="Downspan_'.$post['post_id'].'" >'. $post['downvote_count'] . '</span>
+                </button>
+              ';
+              }
+              else if(intval($reaction['reaction_type']) === 0){
+                // if type is 0 it means Downvote
+                //User has Downvote in this post
+                // disable upvote btn 
+                $button_on = "light";
+                $button_off = "gray";
+
+                echo ' 
+                <button disabled id="upvoteBtn_'.$post['post_id'].'" onclick="addUpvote(event, this, '.$_SESSION['uid'].', '.$post['post_id'].')" class="vote-btn-up '.$button_off.'" style="margin-right: 4px">
+                  <i style="color: #ffca1b" class="fi-xwsuxx-arrow-solid"></i>
+                  <span id="Upspan_'.$post['post_id'].'" >  '. $post['upvote_count'] . ' </span>
+                </button>
+  
+                <button id="downvoteBtn_'.$post['post_id'].'" onclick="addDownvote(event, this, '.$_SESSION['uid'].', '.$post['post_id'].')" class=" vote-btn-down '.$button_on.'">
+                  <i style="color: #ff4141" class="fi-xwsdxx-arrow-solid"></i>
+                  <span id="Downspan_'.$post['post_id'].'" >'. $post['downvote_count'] . '</span>
+                </button>
+              ';
+              }
+          echo '</div> </div>';
           
            }
         ?>
@@ -282,7 +332,7 @@
               </label>`;
     });
   </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js"></script>
 <script type="text/javascript">
 
@@ -304,6 +354,138 @@
             // handle error
             console.log(error);
         });
+    }
+
+    var upvote = true, downvote = true;
+
+    function addDownvote(event, button, uid , postID) {
+      let upVoteBtn =  document.getElementById("upvoteBtn_"+postID);
+
+      if(!upVoteBtn.disabled){
+        var span = button.querySelector('span');
+         // Get current value
+        var currentValue = parseInt(span.textContent.trim());
+        // Increment value
+        var newValue = currentValue + 1;
+        // Update span text
+        span.textContent = newValue;
+        // disable the button upvote btn
+        
+        upVoteBtn.classList.add("gray");
+        upVoteBtn.disabled = true;
+
+
+         button.classList.add("light");
+
+         axios.get('http://localhost/Social_platform_PHP/home/UpdatePost/', {
+            params: {
+              PostID: postID,
+              vote: "DOWN",
+              Userid: uid
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       } else{
+        var span = button.querySelector('span');
+         // Get current value
+        var currentValue = parseInt(span.textContent.trim());
+        // Increment value
+        var newValue = currentValue - 1;
+        // Update span text
+        span.textContent = newValue;
+        // disable the button upvote btn
+    
+        upVoteBtn.classList.remove("gray");
+        upVoteBtn.disabled = false;
+
+
+         button.classList.remove("light");
+
+         axios.get('http://localhost/Social_platform_PHP/home/DownUpdatePost/', {
+            params: {
+              PostID: postID,
+              remove: "DOWN",
+              Userid: uid
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      }
+      
+      
+    
+    }
+
+    function addUpvote(e, button, uid, postID){
+      let downVoteBtn =  document.getElementById("downvoteBtn_"+postID);
+      if(!downVoteBtn.disabled){
+        var span = button.querySelector('span');
+      // Get current value
+      var currentValue = parseInt(span.textContent.trim());
+      // Increment value
+      var newValue = currentValue + 1;
+      // Update span text
+      span.textContent = newValue;
+       // disable the button
+   
+       downVoteBtn.disabled = true;
+        downVoteBtn.classList.add("gray");
+       button.classList.add("light");
+       axios.get('http://localhost/Social_platform_PHP/home/UpdatePost/', {
+            params: {
+              PostID: postID,
+              vote: "UP",
+              Userid: uid
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      } else{
+        var span = button.querySelector('span');
+      // Get current value
+      var currentValue = parseInt(span.textContent.trim());
+      // Increment value
+      var newValue = currentValue - 1;
+      // Update span text
+      span.textContent = newValue;
+       // disable the button
+   
+       downVoteBtn.disabled = false;
+        downVoteBtn.classList.remove("gray");
+       button.classList.remove("light");
+
+       axios.get('http://localhost/Social_platform_PHP/home/DownUpdatePost/', {
+            params: {
+              PostID: postID,
+              remove: "UP",
+              Userid: uid
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+     
+     
+
     }
 </script>
 

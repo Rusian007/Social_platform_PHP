@@ -275,11 +275,18 @@ a {
   display: flex;
   flex-direction: column;
 }
+#input-title{
+  width: auto;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
 #textArea {
   width: auto;
   border-radius: 1rem;
-  max-height: 5rem;
-  font-size: 1.4rem;
+  max-height: 5.2rem;
+  font-size: 1rem;
   padding: 2rem 2rem;
   word-break: break-all;
   margin-bottom: 1rem;
@@ -374,6 +381,19 @@ a {
   }
 }
 
+.gray{
+  background-color: rgb(0, 0, 0) !important;
+}
+.gray:hover{
+  background-color: black !important;
+}
+.light{
+  background-color: var(--yellow) !important;
+
+}
+.light:hover{
+  background-color: var(--yellow) !important;
+}
 
 /* Notification Styles  */
 
