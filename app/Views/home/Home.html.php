@@ -3,7 +3,8 @@
        session_start();
       ?>
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress ALL -->
+ <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -130,7 +131,7 @@
         </div>
 
         <div class="votes">
-          <h5>Upvotes <span class="yellow"> 12</span></h5>
+          <h5>-_- <span class="yellow"> !</span></h5>
           <i style="color: #ffca1b" class="fi-xwluxm-star-half-wide"></i>
         </div>
 
@@ -337,7 +338,7 @@
 <script type="text/javascript">
 
   function OnProfileClick(){
-    window.location.href='../profile/profile.html'
+    window.location.href='/Social_platform_PHP/profile/index'
   }
 
   function OnSearchClick(){

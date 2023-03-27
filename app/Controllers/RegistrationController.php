@@ -104,9 +104,18 @@ class RegistrationController {
 
             // execute and check the query result
             if (mysqli_query($conn, $sql)) {
-   				 echo "New record created successfully";
+                $sql = "SELECT `user_id` FROM `users` WHERE `username` = '$name'";
+                $result = $conn->query($sql);
+                $row = $result->fetch_assoc(); 
+                
+                session_start();
+                $_SESSION['logged_in'] = true;
+                $_SESSION['username'] = $name;
+                $_SESSION['uid'] = $row['user_id'];
+                $_SESSION['email'] = $email;
 			} else {
-   				 echo header('Location: '.$this->location.'signup/signup.html.php?error=try again later');
+   				header('Location: '.$this->location.'signup/signup.html.php?error=Try again later');
+                return;
 			}
 
 			// close database connection
