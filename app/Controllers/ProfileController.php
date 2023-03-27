@@ -15,4 +15,7 @@ class ProfileController
         else
             echo "Are you lost ?";
     }
+
+    // TODO: Create a update Profile function and get the request and update profile picture and email
+    // TODO: Also , don't forget to change the action in form in profile.html.php
 }
