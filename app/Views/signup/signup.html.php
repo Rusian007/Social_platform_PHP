@@ -23,7 +23,13 @@
 <body>
    
  <?php
-    
+
+ require_once '../../../db config.php';
+ // start db connection
+ $handle = new db();
+ $conn = $handle->connect();
+
+
   if (isset($_GET['error'])) {
     $paramValue = $_GET['error'];
     echo '<div class="notification">
@@ -87,12 +93,38 @@
             </div>
             <div class="buttons">
                 <button class="signup-btn" type="submit">Sign Up</button>
-                <button class="google-btn" href="#">
+                <button onclick="OAuthSignUp()" class="google-btn" href="#">
                     <i class="fa fa-google fa-fw"></i> Signup with Google
                     </a>
                 </button>
             </div>
         </form>
+
+        <?php
+        require_once '../../Controllers/oauth/vendor/autoload.php';
+        $sql = "SELECT `client_id`,`secret` FROM `oauth` WHERE `id`=1";
+
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+
+
+        $clientID = $row["client_id"];
+        $secret = $row["secret"];
+
+        $gclient = new Google_Client();
+        $gclient->setClientId($clientID);
+        $gclient->setClientSecret($secret);
+        $gclient->setRedirectUri('http://localhost/Social_platform_PHP/home/oAuth/');
+        $gclient->addScope('email');
+        $gclient->addScope('profile');
+
+        $authUrl = $gclient->createAuthUrl();
+        $conn->close();
+
+        ?>
+
+           <a id="Oauth" style="display: none;" href="<?= $gclient->createAuthUrl() ?>" ></a>
+
 
         <form action="/Social_platform_PHP/registration/LoginSubmit" method="post"  class="right-part container" id="login-form">
             <div>
@@ -112,6 +144,10 @@
 
             <div class="buttons">
                 <button class="signup-btn logn-btn" type="submit">Login</button>
+                <button onclick="OAuthSignUp()" class="google-btn" href="#">
+                    <i class="fa fa-google fa-fw"></i> Login with Google
+                    </a>
+                </button>
             </div>
 
             <a href="#" class="forgot" id="forgot-btn">Forgot Password?</a>
@@ -144,6 +180,9 @@
 
 
 <script type="text/javascript">
+    function OAuthSignUp() {
+        document.getElementById("Oauth").click();
+    }
     //TODO: remove this in production 
   function OnLoginClick(){
     window.location.href='../home/Home.html'

@@ -4,9 +4,11 @@
 require_once 'db config.php';
 
 
+
 // Class to handle form submission
 class RegistrationController
 {
+
 
     public $location = "/Social_platform_PHP/app/Views/";
 
@@ -40,7 +42,7 @@ class RegistrationController
                     $_SESSION['email'] = $email;
                     header('Location: ' . '/Social_platform_PHP/home/index');
                 } else {
-                    header('Location: ' . $this->location . 'signup/signup.html.php?error=Password do not match 😔');
+                    header('Location: ' . $this->location . 'signup/signup.html.php?error=Password do not match 😔 <br> If you used google sign up then please login with google');
 
                 }
                 // close database connection
@@ -134,7 +136,7 @@ class RegistrationController
         exit;
     }
 
-    // TODO: start implementing google sign up here ->
+
 }
 
 

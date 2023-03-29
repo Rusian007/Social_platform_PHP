@@ -65,7 +65,7 @@ body {
 }
 .avatar {
   vertical-align: middle;
-  width: 70px;
+  width: 70px ;
   height: 70px;
   border-radius: 50%;
 }
@@ -150,8 +150,8 @@ body {
   color: white;
 }
 .post-avatar {
-  width: 40px;
-  height: 40px;
+  width: 40px !important;
+  height: 40px !important;
 }
 .image-section {
   display: flex;

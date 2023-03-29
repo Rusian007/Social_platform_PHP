@@ -2,8 +2,10 @@
 
 // requires the database connection file
 require_once 'db config.php';
+require_once 'oauth/vendor/autoload.php';
 
 class HomeController{
+    public $location = "/Social_platform_PHP/app/Views/";
     
     public function logout(){
         session_start();
@@ -32,20 +34,22 @@ class HomeController{
         $post_body = $_POST['textArea'];
         $uid = $_POST['uid'];
         $title = $_POST['title'];
+        $picture = $_POST['picture'];
 
         // create a new Database connection
         $handle = new db();
         $conn = $handle->connect();
         
         // create a new post
-        
-        $sql = "INSERT INTO `posts` ( `post_text`, `post_picture`, `date_posted`, `date_updated`, `user_id`, `upvote_count`, `downvote_count`, `post_title`) VALUES ( '$post_body', '', '$joined', '$joined', '$uid', '0', '0', '$title');
-";
+
+        $stmt = $conn->prepare("INSERT INTO posts (post_text, post_picture, date_posted, date_updated, user_id, upvote_count, downvote_count, post_title) VALUES (?, ?, ?, ?, ?, 0, 0, ?)");
+        $stmt->bind_param("ssssis", $post_body, $picture, $joined, $joined, $uid, $title);
+
         // Execute the SQL query
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             header('Location: '.'/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error:  <br>" . $conn->error;
         }
     
     // Close the connection
@@ -174,6 +178,99 @@ class HomeController{
              }
 
         }
+
+    }
+    public function oAuth(){
+        // start db connection
+        $handle = new db();
+        $conn = $handle->connect();
+
+        $sql = "SELECT `client_id`,`secret` FROM `oauth` WHERE `id`=1";
+
+        $result = $conn->query($sql);
+        $row = $result->fetch_assoc();
+
+        $clientID = $row["client_id"];
+        $secret = $row["secret"];
+
+        $gclient = new Google_Client();
+        $gclient->setClientId($clientID);
+        $gclient->setClientSecret($secret);
+        $gclient->setRedirectUri('http://localhost/Social_platform_PHP/home/oAuth/');
+        $gclient->addScope('email');
+        $gclient->addScope('profile');
+
+        $authUrl = $gclient->createAuthUrl();
+
+        if(isset($_GET['code'])){
+            // Get Token
+            $token = $gclient->fetchAccessTokenWithAuthCode($_GET['code']);
+
+            // Check if fetching token did not return any errors
+            if(!isset($token['error'])){
+                // Setting Access token
+                $gclient->setAccessToken($token['access_token']);
+
+
+                // Get Account Profile using Google Service
+                $gservice = new Google_Service_Oauth2($gclient);
+
+                // Get User Data
+                $udata = $gservice->userinfo->get();
+
+                $email = $udata['email'];
+                $username =  $udata['name'];
+                $picture = $udata->picture;
+
+                // Query to find out if user already exists
+                $sql = " SELECT * FROM `users` WHERE `email` = '$email'";
+                $result = $conn->query($sql); // execute the query
+
+                // Check if there are any rows returned
+                if (mysqli_num_rows($result) > 0) {
+                    // User already exists then just log him in
+                    $row = $result->fetch_assoc();
+                    session_start();
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['username'] = $username;
+                    $_SESSION['uid'] = $row['user_id'];
+                    $_SESSION['email'] = $email;
+                    $_SESSION['picture'] = $picture;
+
+                    header('Location: /Social_platform_PHP/app/Views/home/Home.html.php');
+
+                    // close database connection
+                    $conn->close();
+                    exit;
+                } else{
+                    // User does not exists - create new user - log him in
+                    $joined = date('Y-m-d');
+                    $sql = "INSERT INTO `users` ( `username`, `email`, `profile_picture`, `date_joined`, `last_login`) VALUES ( '$username', '$email', '$picture', '$joined', '$joined');";
+                    // execute and check the query result
+                    if (mysqli_query($conn, $sql)) {
+                        $sql = "SELECT `user_id` FROM `users` WHERE `username` = '$username'";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+
+                        session_start();
+                        $_SESSION['logged_in'] = true;
+                        $_SESSION['username'] = $username;
+                        $_SESSION['uid'] = $row['user_id'];
+                        $_SESSION['email'] = $email;
+                        $_SESSION['picture'] = $picture;
+                        $conn->close();
+                        header('Location: /Social_platform_PHP/app/Views/home/Home.html.php');
+                        exit;
+                    } else {
+                        header('Location: ' . $this->location . 'signup/signup.html.php?error=Try again later');
+                        return;
+                    }
+                }
+
+                exit;
+            }
+        }
+
 
     }
 

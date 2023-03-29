@@ -70,7 +70,7 @@
             ></textarea>
 
             <div class="media-display">
-              <input type="file" id="file" accept="image/*" />
+              <input type="file" name="picture" id="file" accept="image/*" />
               <input type="hidden" name="uid" value="<?php echo $_SESSION['uid']; ?>" />
 
               <label for="file">
@@ -115,11 +115,22 @@
         </div>
 
         <div class="img">
-          <img
-            src="https://www.w3schools.com/howto/img_avatar2.png"
-            alt="Avatar"
-            class="avatar"
-          />
+            <?php
+            if (isset($_SESSION['picture'])){
+                echo '<img
+                    src='.$_SESSION['picture'].'
+                    alt="Avatar"
+                    class="avatar"
+                    />';
+            } else{
+                echo '<img
+                    src="https://www.w3schools.com/howto/img_avatar2.png"
+                    alt="Avatar"
+                    class="avatar"
+                    />';
+            }
+
+            ?>
         </div>
 
         <div class="user-name">
@@ -164,21 +175,32 @@
           <?php 
            foreach ($posts as $post) {
 
-            $userInfo = $conn->query('SELECT `username` FROM `users` WHERE user_id = '.$post['user_id']);
-            $user = $userInfo->fetch_assoc(); //get the username
+            $userInfo = $conn->query('SELECT `username`, `profile_picture` FROM `users` WHERE user_id = '.$post['user_id']);
+            $user = $userInfo->fetch_assoc();
+
 
             $reactionInfo = $conn->query ('SELECT `reaction_type` FROM `reactions` WHERE `post_id` = '.$post['post_id'].' AND `user_id` = '.$_SESSION['uid']);
             $reaction = $reactionInfo->fetch_assoc();
 
         echo'  <div class="post">
             <div class="image-section">
-              <div class="img-user">
-                <img
+              <div class="img-user">';
+               if (!is_null($user["profile_picture"])){
+                   echo '<img
+                    src='.$user["profile_picture"].'
+                    alt="Avatar"
+                    class="avatar post-avatar"
+                    />';
+               } else{
+                   echo '<img
                   src="https://www.w3schools.com/howto/img_avatar2.png"
                   alt="Avatar"
                   class="avatar post-avatar"
-                />
-                <h3>'. $user['username']  .' </h3>
+                />';
+               }
+
+        echo
+                '<h3>'. $user['username']  .' </h3>
               </div>
 
               <i class="fi-xwsrxx-ellipsis"></i>

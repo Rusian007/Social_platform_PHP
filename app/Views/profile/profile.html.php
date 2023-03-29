@@ -34,6 +34,11 @@ session_start();
     </style>
 
     <?php
+    if(!isset($_SESSION['logged_in']))
+    {
+        header('Location: '.'/Social_platform_PHP/registration/index');
+        exit;
+    }
     require_once '../../../db config.php';
     $sql = "SELECT * FROM `posts` WHERE `user_id` = " . $_SESSION['uid'];
 
@@ -65,7 +70,7 @@ session_start();
                 <i class="fi-xnsuxl-house-solid"></i>
             </button>
 
-            <button class="btn btn-red">
+            <button onclick="logout()" class="btn btn-red">
                 <i class="fi-xnsuxl-sign-out-solid"></i>
             </button>
 
@@ -81,7 +86,24 @@ session_start();
     <div class="user-info">
 
         <div class="image-container">
-            <img src="https://i.pinimg.com/originals/28/0d/b1/280db177e9d448726401dd1d6532a970.png" class="avatar">
+            <?php
+            if (isset($_SESSION['picture'])){
+                echo '<img
+                    src='.$_SESSION['picture'].'
+                    alt="Avatar"
+                    class="avatar"
+                    />';
+            } else{
+                echo '<img
+                    src="https://www.w3schools.com/howto/img_avatar2.png"
+                    alt="Avatar"
+                    class="avatar"
+                    />';
+            }
+
+
+            ?>
+
             <button onclick="UploadPicture()" class="edit-button" style="display: none;">Upload</button>
             <form id="Update-Form" action="#" method="post" enctype="multipart/form-data">
             <input type="file" id="file-input" name="profile-pic" style="display: none;" accept=".jpg,.jpeg,.png">
@@ -174,8 +196,19 @@ session_start();
 
 
 <script defer src="https://friconix.com/cdn/friconix.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
+    function logout(){
+        axios.get('http://localhost/Social_platform_PHP/home/logout')
+            .then(function (response) {
+                // handle success
+                location.reload();
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+    }
 
     function OnHomeClick() {
         window.location.href = '/Social_platform_PHP/home/index'
