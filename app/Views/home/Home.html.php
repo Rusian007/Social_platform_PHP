@@ -47,6 +47,12 @@
               $posts[] = $row;
           }
 
+           $uid = $_SESSION['uid'];
+           $usersql = "SELECT * FROM `users` WHERE `user_id` = " . $uid;
+           $res = $conn->query($usersql);
+           $CurrentUser = $res->fetch_assoc();
+
+
          }
       ?>
     <!--Modal starts here-->
@@ -116,9 +122,9 @@
 
         <div class="img">
             <?php
-            if (isset($_SESSION['picture'])){
+            if (!is_null($CurrentUser['profile_picture'])){
                 echo '<img
-                    src='.$_SESSION['picture'].'
+                    src='.$CurrentUser['profile_picture'].'
                     alt="Avatar"
                     class="avatar"
                     />';

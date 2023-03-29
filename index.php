@@ -5,6 +5,7 @@ require_once "app/Controllers/ProfileController.php";
 
 $request_uri = $_SERVER['REQUEST_URI'];
 
+
 // splits a string into an array of substrings
 $segments = explode('/', $request_uri);
 

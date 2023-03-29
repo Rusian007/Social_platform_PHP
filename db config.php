@@ -1,6 +1,10 @@
 <?php
 
 Class db{
+    public $baseUrl = 'http://localhost';
+    public $uploadDir = '/Social_platform_PHP/app/upload/profile_pics';
+
+
 
     public function connect(){
         $servername = "localhost";

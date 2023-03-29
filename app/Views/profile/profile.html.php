@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="profile.css"> <!--linking the stylesheet to the css file-->
+    <link rel="stylesheet" href="./profile.css"> <!--linking the stylesheet to the css file-->
     <title>OWN Page</title> <!--creating a title for the page-->
 
     <style>
@@ -34,13 +34,13 @@ session_start();
     </style>
 
     <?php
-    if(!isset($_SESSION['logged_in']))
-    {
-        header('Location: '.'/Social_platform_PHP/registration/index');
+    if (!isset($_SESSION['logged_in'])) {
+        header('Location: ' . '/Social_platform_PHP/registration/index');
         exit;
     }
     require_once '../../../db config.php';
-    $sql = "SELECT * FROM `posts` WHERE `user_id` = " . $_SESSION['uid'];
+    $uid = $_SESSION['uid'];
+    $sql = "SELECT * FROM `posts` WHERE `user_id` = " . $uid;
 
 
     // create a new Database connection
@@ -48,11 +48,29 @@ session_start();
     $conn = $handle->connect();
 
     $result = $conn->query($sql);
+
+
+    $usersql = "SELECT * FROM `users` WHERE `user_id` = " . $uid;
+    $res = $conn->query($usersql);
+    $CurrentUser = $res->fetch_assoc();
     ?>
 
 </head>
 
 <body>
+
+<?php
+
+if (isset($_GET['notice'])) {
+    $paramValue = $_GET['notice'];
+    echo '<div class="notification">
+              <h3>' . $paramValue . '</h3>
+              <div class="vertical-line"></div>
+            </div>';
+}
+?>
+
+
 <div class="nav-container">
 
 
@@ -87,13 +105,13 @@ session_start();
 
         <div class="image-container">
             <?php
-            if (isset($_SESSION['picture'])){
+            if (!is_null($CurrentUser['profile_picture'])) {
                 echo '<img
-                    src='.$_SESSION['picture'].'
+                    src=' . $CurrentUser['profile_picture'] . '
                     alt="Avatar"
                     class="avatar"
                     />';
-            } else{
+            } else {
                 echo '<img
                     src="https://www.w3schools.com/howto/img_avatar2.png"
                     alt="Avatar"
@@ -105,8 +123,10 @@ session_start();
             ?>
 
             <button onclick="UploadPicture()" class="edit-button" style="display: none;">Upload</button>
-            <form id="Update-Form" action="#" method="post" enctype="multipart/form-data">
-            <input type="file" id="file-input" name="profile-pic" style="display: none;" accept=".jpg,.jpeg,.png">
+            <form id="Update-Form" action="/Social_platform_PHP/profile/updateProfile" method="post"
+                  enctype="multipart/form-data">
+                <input type="file" id="file-input" name="profile-pic" style="display: none;" accept=".jpg,.jpeg,.png">
+                <input type="hidden" name="uid" value="<?php echo $uid; ?>">
         </div>
 
         <div id="edit-off" class="user-name">
@@ -138,9 +158,12 @@ session_start();
             Update
         </button>
 
-        <button class="btn btn-red">
+        <button onclick="ProfileDelete()" class="btn btn-red">
             Delete
         </button>
+        <form id="delete-form" method="get" style="display: none;" action="http://localhost/Social_platform_PHP/profile/delete/">
+            <input type="hidden" name="uid" value=<?php echo $_SESSION['uid']; ?> >
+        </form>
     </div>
 </div>
 
@@ -196,9 +219,12 @@ session_start();
 
 
 <script defer src="https://friconix.com/cdn/friconix.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"
+        integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-    function logout(){
+
+    function logout() {
         axios.get('http://localhost/Social_platform_PHP/home/logout')
             .then(function (response) {
                 // handle success
@@ -227,6 +253,7 @@ session_start();
             editOff.style.display = "block";
             editButton.style.display = "none";
             editOn.style.display = "none";
+            // submit the form
             document.getElementById('Update-Form').submit();
 
 
@@ -245,6 +272,12 @@ session_start();
         var fileInput = document.querySelector("#file-input");
 
         fileInput.click();
+
+    }
+
+    function ProfileDelete() {
+
+        document.getElementById('delete-form').submit();
 
     }
 
