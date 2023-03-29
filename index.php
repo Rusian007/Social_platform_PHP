@@ -2,6 +2,7 @@
 require_once "app/Controllers/RegistrationController.php";
 require_once "app/Controllers/HomeController.php";
 require_once "app/Controllers/ProfileController.php";
+require_once "app/Controllers/SearchController.php";
 
 $request_uri = $_SERVER['REQUEST_URI'];
 

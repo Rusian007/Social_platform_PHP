@@ -21,12 +21,12 @@
         <div class="search">
 
             <div class="header">
-                <h2>Looking for something?</h2>
+                <h2>Looking for a particular post?</h2>
            
 
                 <div class="search-bar">
-                    <input type="text" id="user" name="user" placeholder="search here...">
-                     <button id="submit"><img src="find.svg" alt="" class="find"></button>
+                    <input type="text" id="query" name="q" placeholder="input post title...">
+
                 </div>
 
             </div>
@@ -44,6 +44,7 @@
         </div>
     </div>
 
+    <script src="search.js"></script>
 </body>
 
 </html>

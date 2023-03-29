@@ -370,7 +370,7 @@
   }
 
   function OnSearchClick(){
-    window.location.href='../search/search.html'
+    window.location.href='/Social_platform_PHP/search/index'
   }
     
     function logout(){
