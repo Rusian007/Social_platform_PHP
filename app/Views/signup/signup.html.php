@@ -17,7 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600&family=Poppins:wght@100;300;500;700;900&display=swap"
         rel="stylesheet">
 
-    <title>Home</title>
+    <title>NSC || Home</title>
 </head>
 
 <body>
@@ -42,6 +42,7 @@
 
     <div class="header">
         <div class="logo">
+            <span> <img style="width: 40px; padding: 10px;" src="http://localhost/Social_platform_PHP/public/images/logo.svg"> </span>
             <span>Welcome to NSC</span>
         </div>
 

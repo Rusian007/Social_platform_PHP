@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>Live Search</title>
+    <title>NSC || Search</title>
 </head>
 
 <body>
@@ -32,11 +32,8 @@
             </div>
 
             <div class="user-info">
-                <ul class="user-list">
-                    <li>Loading...</li>
-                    <li>Loading...</li>
-                    <li>Loading...</li>
-                    <li>Loading...</li>
+                <ul id="results" class="user-list">
+
                 </ul>
             </div>
 

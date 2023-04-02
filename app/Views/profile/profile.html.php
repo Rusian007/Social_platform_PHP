@@ -10,7 +10,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./profile.css"> <!--linking the stylesheet to the css file-->
-    <title>OWN Page</title> <!--creating a title for the page-->
+    <title>NSC || Profile</title> <!--creating a title for the page-->
 
     <style>
         .image-container {
@@ -176,12 +176,24 @@ if (isset($_GET['notice'])) {
     while ($row = $result->fetch_assoc()) {
 
 
-        echo
-            '<div class="post">
+        echo  '<div class="post">
           <div class="image-section">
             
             <div class="img-user">
-              <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar post-avatar">
+            ';
+
+        // show picture of user if user has a picture
+        if (!is_null($CurrentUser['profile_picture'])) {
+            echo '
+            <img src=' . $CurrentUser['profile_picture'] . ' alt="Avatar" class="avatar post-avatar"> ';
+        } else {
+            echo '<img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar post-avatar">';
+        }
+
+
+
+
+        echo '
               <h3>' . $_SESSION['username'] . '</h3>
             </div>
               
