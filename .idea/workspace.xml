@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6344155e-e203-4563-9ce7-d2073e76633e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controllers/SearchController.php" afterPath="$PROJECT_DIR$/app/Controllers/SearchController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Views/home/Home.html.php" afterPath="$PROJECT_DIR$/app/Views/home/Home.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Views/profile/profile.html.php" afterPath="$PROJECT_DIR$/app/Views/profile/profile.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Views/search/search.html.php" afterPath="$PROJECT_DIR$/app/Views/search/search.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Views/search/search.js" afterPath="$PROJECT_DIR$/app/Views/search/search.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Views/signup/signup.html.php" afterPath="$PROJECT_DIR$/app/Views/signup/signup.html.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nsc.sql" afterPath="$PROJECT_DIR$/nsc.sql" />
-    </list>
+    <list default="true" id="6344155e-e203-4563-9ce7-d2073e76633e" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signup.html.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="signup.html.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Views/signup/signup.html.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
@@ -83,6 +75,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name=".htaccess" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.htaccess">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -92,6 +94,7 @@
       <find>notification</find>
       <find>logout</find>
       <find>search</find>
+      <find>wel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -379,7 +382,7 @@
       <workItem from="1679930223567" duration="108000" />
       <workItem from="1679930354337" duration="190000" />
       <workItem from="1679930564325" duration="13927000" />
-      <workItem from="1680077651867" duration="14625000" />
+      <workItem from="1680077651867" duration="15565000" />
     </task>
     <task id="LOCAL-00001" summary="Profile page started">
       <created>1679930893523</created>
@@ -399,7 +402,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29410000" />
+    <option name="totallyTimeSpent" value="30350000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -412,7 +415,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="947" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.134375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -631,14 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/.htaccess">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
@@ -831,6 +825,14 @@
             <marker date="1680428090475" expanded="true" signature="4317:4370" ph="SELECT `clie... oauth" />
             <marker date="1680428090475" expanded="true" signature="7258:7285" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="33" lean-forward="false" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>

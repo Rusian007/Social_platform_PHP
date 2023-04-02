@@ -25,7 +25,12 @@ document.getElementById('query').addEventListener('input', function() {
             for (var i = 0; i < results.length; i++) {
                 var result = results[i];
                 var resultElement = document.createElement('li');
+                resultElement.setAttribute('data-post-id', result.post_id);
                 resultElement.textContent = result.post_title;
+                resultElement.onclick = function() {
+                    var postId = this.dataset.postId;
+                    window.location.href = 'http://localhost/Social_platform_PHP/search/showpost/?post_id=' + postId;
+                };
                 resultsContainer.appendChild(resultElement);
             }
         }

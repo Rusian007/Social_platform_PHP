@@ -39,4 +39,9 @@ class SearchController
         echo json_encode($results);
     }
 
+    public function showpost(){
+         header('Location: '.'/Social_platform_PHP/app/Views/search/searchpost.html.php');
+        exit;
+    }
+
 }
