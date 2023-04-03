@@ -132,21 +132,22 @@ if (isset($_GET['notice'])) {
         <div id="edit-off" class="user-name">
             <?php
             echo '
-             <h1>' . $_SESSION['username'] . '</h1>
+             <h1>' . $CurrentUser['username'] . '</h1>
              <h3>' . $_SESSION['email'] . '</h3>
              ';
             ?>
         </div>
 
         <div id="edit-on" class="user-name">
+            <input id="username-input" type="text" name="username-update" placeholder="Username">
             <?php
             echo '
-             <h1>' . $_SESSION['username'] . '</h1>
+              <h3>' . $_SESSION['email'] . '</h3>
            
              ';
             ?>
 
-            <input id="email-input" type="text" name="email-update" placeholder="Email">
+            
 
         </div>
         </form>

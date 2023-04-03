@@ -40,8 +40,20 @@ class SearchController
     }
 
     public function showpost(){
-         header('Location: '.'/Social_platform_PHP/app/Views/search/searchpost.html.php');
-        exit;
+
+        if(isset( $_GET['post_id'])){
+               $postid = $_GET['post_id'];
+                session_start();
+               $_SESSION['post_id'] = $postid;
+               
+             header('Location: '.'/Social_platform_PHP/app/Views/search/searchpost.html.php');
+               
+        } else{
+            echo "Nothing Found !";
+        }
+    
+
+          exit;
     }
 
 }

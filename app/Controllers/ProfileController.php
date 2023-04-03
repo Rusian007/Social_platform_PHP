@@ -27,10 +27,10 @@ class ProfileController
             $handle = new db();
             $conn = $handle->connect();
 
-            if(isset($_POST['email-update'])){
-                $email = filter_var($_POST["email-update"], FILTER_SANITIZE_EMAIL);
-                $stmt = $conn->prepare('UPDATE `users` SET `email`= (?) WHERE `user_id` = ?');
-                $stmt->bind_param('si', $email, $uid);
+            if(isset($_POST['username-update'])){
+                $username = $_POST["username-update"];
+                $stmt = $conn->prepare('UPDATE `users` SET `username`= (?) WHERE `user_id` = ?');
+                $stmt->bind_param('si', $username, $uid);
                 $stmt->execute();
 
             }

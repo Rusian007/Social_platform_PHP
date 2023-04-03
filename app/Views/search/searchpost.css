@@ -54,68 +54,6 @@ nav{
 }
 
 
-.container{
-	padding: 10px 20px 10px 20px;
-	color: white;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	flex-wrap: wrap;
-}
-
-
-.user-info{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.avatar {
-  vertical-align: middle;
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-}
-
-.btn-red{
-	background:var(--red) ;
-	color: white;
-	font-weight: bold;
-}
-
-.btn-red:hover{
-	background-color: black;
-	color: white;
-}
-
-.user-name{
-	padding: 10px;
-	margin-left: 20px;
-}
-
-@media only screen and (max-width: 600px) {
-	.avatar {
-  
-  			width: 100px;
-  			height: 100px;
-  
-}
-	.user-name h1{
-		font-size: 25px;
-		font-weight: bold;
-	}	
-
-	.user-name h3{
-		font-size: 15px;
-	}	
-
-	.buttons-profile{
-		margin-top: 40px;
-	}
-
-}
-
-
 
 
 .post-container{
@@ -201,45 +139,6 @@ nav{
 
 }
 
-
-/* Notification Styles  */
-
-.notification{
-	z-index: 999;
-	position: absolute;
-	top: 10px;
-	background: var(--black);
-	padding: 15px;
-	display: flex;
-	justify-content: space-between;
-	animation: slideInAndOut ease-in-out 6s forwards;
-}
-.notification h3{
-	font-size: 17px;
-	color: var(--yellow);
-}
-.vertical-line{
-	width: 10px;
-	margin-left: 22px;
-	background: var(--yellow);
-}
-@keyframes slideInAndOut {
-	0% {
-		left : -500px;
-	}
-	50% {
-		left : 0px;
-	}
-	75%{
-		left : 0px;
-	}
-	100% {
-		left : -500px;
-		display: none;
-		visibility: hidden;
-	}
-}
-/* Notification Styles end  */
 
 
 .gray{

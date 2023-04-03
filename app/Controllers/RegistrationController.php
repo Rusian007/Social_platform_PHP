@@ -75,7 +75,7 @@ class RegistrationController
             $password = $_POST['password'];
 
             // Check if the user already exists
-            $sql = " SELECT * FROM `users` WHERE `username` = '$name'";
+            $sql = " SELECT * FROM `users` WHERE `email` = '$email'";
             $result = $conn->query($sql); // execute the query
 
             // Check if there are any rows returned
