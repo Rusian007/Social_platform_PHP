@@ -140,7 +140,3 @@ class RegistrationController
 }
 
 
-
-
-
-

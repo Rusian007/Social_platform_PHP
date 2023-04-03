@@ -12,6 +12,9 @@ $segments = explode('/', $request_uri);
 
 // second segment is the controller name
 // ucfirst  takes a string as an argument and returns the same string with the first character capitalized
+
+
+
 $controller_name = ucfirst($segments[2]) . 'Controller';
 //echo $controller_name;
 

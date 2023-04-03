@@ -139,7 +139,7 @@ if (isset($_GET['notice'])) {
         </div>
 
         <div id="edit-on" class="user-name">
-            <input id="username-input" type="text" name="username-update" placeholder="Username">
+            <input id="username-input" type="text" name="username-update" placeholder="Username" value="<?php echo $CurrentUser['username']; ?>">
             <?php
             echo '
               <h3>' . $_SESSION['email'] . '</h3>

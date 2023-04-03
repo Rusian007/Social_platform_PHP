@@ -55,7 +55,7 @@ class ProfileController
                     // The file was successfully moved to the destination - Save the link to the picture in the database
 
 
-
+                        
                     // set a server file path (http:// )
                     $serverFilePath =  $handle->baseUrl . $handle->uploadDir . '/' . $fileName;
 

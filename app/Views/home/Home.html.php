@@ -356,7 +356,7 @@
       backdrop.style.display = "none";
       display.innerHTML = `<input type="file" id="file" accept="image/*" />
               <label for="file">
-                <img src="upload.png" alt="error" />
+                <img src="upload.png" alt="upload" />
                 <h3>Upload picture</h3>
               </label>`;
     });
