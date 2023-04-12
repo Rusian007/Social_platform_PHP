@@ -4,33 +4,35 @@
 require_once 'db config.php';
 require_once 'oauth/vendor/autoload.php';
 
-class HomeController{
+class HomeController
+{
     public $location = "/Social_platform_PHP/app/Views/";
-    
-    public function logout(){
+
+    public function logout()
+    {
         session_start();
         session_unset();
         session_destroy();
-        
-        header('Location: '.'/Social_platform_PHP/registration/index');
 
+        header('Location: ' . '/Social_platform_PHP/registration/index');
     }
 
 
-	public function index(){
-            session_start();
-        
-         if(isset($_SESSION['logged_in']))
-         {
-		  header('Location: '.'/Social_platform_PHP/app/Views/home/Home.html.php');
-		  exit;
-         } else{
-             echo "Log in first";
-         }
-	}
-    
-    public function createPost(){
-         $joined = date('Y-m-d');
+    public function index()
+    {
+        session_start();
+
+        if (isset($_SESSION['logged_in'])) {
+            header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php');
+            exit;
+        } else {
+            echo "Log in first";
+        }
+    }
+
+    public function createPost()
+    {
+        $joined = date('Y-m-d');
         $post_body = $_POST['textArea'];
         $uid = $_POST['uid'];
         $title = $_POST['title'];
@@ -39,7 +41,7 @@ class HomeController{
         // create a new Database connection
         $handle = new db();
         $conn = $handle->connect();
-        
+
         // create a new post
 
         $stmt = $conn->prepare("INSERT INTO posts (post_text, post_picture, date_posted, date_updated, user_id, upvote_count, downvote_count, post_title) VALUES (?, ?, ?, ?, ?, 0, 0, ?)");
@@ -47,17 +49,17 @@ class HomeController{
 
         // Execute the SQL query
         if ($stmt->execute()) {
-            header('Location: '.'/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
+            header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
         } else {
             echo "Error:  <br>" . $conn->error;
         }
-    
-    // Close the connection
-    $conn->close();
 
+        // Close the connection
+        $conn->close();
     }
 
-    public function UpdatePost(){
+    public function UpdatePost()
+    {
         if (isset($_GET['PostID']) && isset($_GET['vote'])) {
             $postid = $_GET['PostID'];
             $VoteType = $_GET['vote'];
@@ -65,122 +67,113 @@ class HomeController{
             $reacted = date('Y-m-d');
 
             // create a new Database connection
-             $handle = new db();
-             $conn = $handle->connect();
-           
-             if($VoteType == "UP"){
-                     //Increment Upvotes
-                 $sql1 = "UPDATE `posts` SET `upvote_count`=`upvote_count` + 1 WHERE `post_id`= ".$postid.";";
+            $handle = new db();
+            $conn = $handle->connect();
+
+            if ($VoteType == "UP") {
+                //Increment Upvotes
+                $sql1 = "UPDATE `posts` SET `upvote_count`=`upvote_count` + 1 WHERE `post_id`= " . $postid . ";";
                 // Execute the SQL query
                 if ($conn->query($sql1) === TRUE) {
-                   //echo "Upvote Updated";
-               } else {
-                  // echo "error";
-               }
+                    //echo "Upvote Updated";
+                } else {
+                    // echo "error";
+                }
 
-               $sql2 = "SELECT * FROM `reactions` WHERE `user_id` = ".$uid." AND `post_id` = ".$postid.";";
-               // Execute the query
+                $sql2 = "SELECT * FROM `reactions` WHERE `user_id` = " . $uid . " AND `post_id` = " . $postid . ";";
+                // Execute the query
                 $result = $conn->query($sql2);
 
                 // Check if the result is empty
-                 if ($result->num_rows > 0) {
-                     // The result is not empty we update 
-                     $UpdateSql = "UPDATE `reactions` SET `reaction_type`= 1 WHERE `user_id`=".$uid." AND `post_id` = ".$postid.";";
+                if ($result->num_rows > 0) {
+                    // The result is not empty we update 
+                    $UpdateSql = "UPDATE `reactions` SET `reaction_type`= 1 WHERE `user_id`=" . $uid . " AND `post_id` = " . $postid . ";";
 
-                     if ($conn->query($UpdateSql) === TRUE) {
+                    if ($conn->query($UpdateSql) === TRUE) {
                         echo "Upvote Updated";
-                    } 
-                 } else {
+                    }
+                } else {
 
-                    $InsertSql = "INSERT INTO `reactions`( `reaction_type`, `date_reacted`, `user_id`, `post_id`) VALUES (1,'".$reacted."',".$uid.",".$postid.");";
+                    $InsertSql = "INSERT INTO `reactions`( `reaction_type`, `date_reacted`, `user_id`, `post_id`) VALUES (1,'" . $reacted . "'," . $uid . "," . $postid . ");";
                     if ($conn->query($InsertSql) === TRUE) {
                         echo "Upvote Inserted";
-                    } 
-                
-                 }
-             }
+                    }
+                }
+            }
 
-             if($VoteType == "DOWN"){
-                    //Increment Upvotes
-                    $sql2 = "UPDATE `posts` SET `downvote_count`=`downvote_count` + 1 WHERE `post_id`=".$postid.";";
-                    // Execute the SQL query
-                    if ($conn->query($sql2) === TRUE) {
-                        $sql2 = "SELECT * FROM `reactions` WHERE `user_id` = ".$uid." AND `post_id` = ".$postid.";";
-                        // Execute the query
-                         $result = $conn->query($sql2);
+            if ($VoteType == "DOWN") {
+                //Increment Upvotes
+                $sql2 = "UPDATE `posts` SET `downvote_count`=`downvote_count` + 1 WHERE `post_id`=" . $postid . ";";
+                // Execute the SQL query
+                if ($conn->query($sql2) === TRUE) {
+                    $sql2 = "SELECT * FROM `reactions` WHERE `user_id` = " . $uid . " AND `post_id` = " . $postid . ";";
+                    // Execute the query
+                    $result = $conn->query($sql2);
 
-                        // Check if the result is empty
-                         if ($result->num_rows > 0) {
-                         // The result is not empty we update 
-                        $UpdateSql = "UPDATE `reactions` SET `reaction_type`= 0 WHERE `user_id`=".$uid." AND `post_id` = ".$postid.";";
-                                
-                             if ($conn->query($UpdateSql) === TRUE) {
-                                echo "Downvote Updated";
-                             } 
-               
-                          } else {
+                    // Check if the result is empty
+                    if ($result->num_rows > 0) {
+                        // The result is not empty we update 
+                        $UpdateSql = "UPDATE `reactions` SET `reaction_type`= 0 WHERE `user_id`=" . $uid . " AND `post_id` = " . $postid . ";";
 
-                             $InsertSql = "INSERT INTO `reactions`( `reaction_type`, `date_reacted`, `user_id`, `post_id`) VALUES (0,'".$reacted."',".$uid.",".$postid.");";
-                             if ($conn->query($InsertSql) === TRUE) {
-                                echo "Downvote Inserted";
-                            } 
-                             }
-                   } else {
-                      
-                   }
+                        if ($conn->query($UpdateSql) === TRUE) {
+                            echo "Downvote Updated";
+                        }
+                    } else {
 
-                   
-             }
-            
-           
-          }  
-          
-          
+                        $InsertSql = "INSERT INTO `reactions`( `reaction_type`, `date_reacted`, `user_id`, `post_id`) VALUES (0,'" . $reacted . "'," . $uid . "," . $postid . ");";
+                        if ($conn->query($InsertSql) === TRUE) {
+                            echo "Downvote Inserted";
+                        }
+                    }
+                } else {
+                }
+            }
+        }
     }
 
-    public function DownUpdatePost(){
+    public function DownUpdatePost()
+    {
         if (isset($_GET['PostID']) && isset($_GET['remove'])) {
             $postid = $_GET['PostID'];
             $VoteType = $_GET['remove'];
             $uid = $_GET['Userid'];
-           
+
             $reacted = date('Y-m-d');
 
-             // create a new Database connection
-             $handle = new db();
-             $conn = $handle->connect();
-           
-             if($VoteType == "UP"){
-                 // we remove the upvote
-                 $sql2 = "UPDATE `posts` SET `upvote_count`=`upvote_count` - 1 WHERE `post_id`=".$postid.";";
-                 // Execute the SQL query
-                 if ($conn->query($sql2) === TRUE) {
-                           // The result is not empty we update 
-                           $UpdateSql = "UPDATE `reactions` SET `reaction_type`= null WHERE `user_id`=".$uid." AND `post_id` = ".$postid.";";
-                                 
-                           if ($conn->query($UpdateSql) === TRUE) {
-                              echo "Upvote removed";
-                           } 
-                 }
-             }
-             if($VoteType == "DOWN"){
-                // we remove the downvote
-                $sql2 = "UPDATE `posts` SET `downvote_count`=`downvote_count` - 1 WHERE `post_id`=".$postid.";";
+            // create a new Database connection
+            $handle = new db();
+            $conn = $handle->connect();
+
+            if ($VoteType == "UP") {
+                // we remove the upvote
+                $sql2 = "UPDATE `posts` SET `upvote_count`=`upvote_count` - 1 WHERE `post_id`=" . $postid . ";";
                 // Execute the SQL query
                 if ($conn->query($sql2) === TRUE) {
-                          // The result is not empty we update 
-                          $UpdateSql = "UPDATE `reactions` SET `reaction_type`= null WHERE `user_id`=".$uid." AND `post_id` = ".$postid.";";
-                                
-                          if ($conn->query($UpdateSql) === TRUE) {
-                             echo "Downvote removed";
-                          } 
+                    // The result is not empty we update 
+                    $UpdateSql = "UPDATE `reactions` SET `reaction_type`= null WHERE `user_id`=" . $uid . " AND `post_id` = " . $postid . ";";
+
+                    if ($conn->query($UpdateSql) === TRUE) {
+                        echo "Upvote removed";
+                    }
                 }
-             }
+            }
+            if ($VoteType == "DOWN") {
+                // we remove the downvote
+                $sql2 = "UPDATE `posts` SET `downvote_count`=`downvote_count` - 1 WHERE `post_id`=" . $postid . ";";
+                // Execute the SQL query
+                if ($conn->query($sql2) === TRUE) {
+                    // The result is not empty we update 
+                    $UpdateSql = "UPDATE `reactions` SET `reaction_type`= null WHERE `user_id`=" . $uid . " AND `post_id` = " . $postid . ";";
 
+                    if ($conn->query($UpdateSql) === TRUE) {
+                        echo "Downvote removed";
+                    }
+                }
+            }
         }
-
     }
-    public function oAuth(){
+    public function oAuth()
+    {
         // start db connection
         $handle = new db();
         $conn = $handle->connect();
@@ -202,12 +195,12 @@ class HomeController{
 
         $authUrl = $gclient->createAuthUrl();
 
-        if(isset($_GET['code'])){
+        if (isset($_GET['code'])) {
             // Get Token
             $token = $gclient->fetchAccessTokenWithAuthCode($_GET['code']);
 
             // Check if fetching token did not return any errors
-            if(!isset($token['error'])){
+            if (!isset($token['error'])) {
                 // Setting Access token
                 $gclient->setAccessToken($token['access_token']);
 
@@ -242,7 +235,7 @@ class HomeController{
                     // close database connection
                     $conn->close();
                     exit;
-                } else{
+                } else {
                     // User does not exists - create new user - log him in
                     $joined = date('Y-m-d');
                     $sql = "INSERT INTO `users` ( `username`, `email`, `profile_picture`, `date_joined`, `last_login`) VALUES ( '$username', '$email', '$picture', '$joined', '$joined');";
@@ -270,9 +263,5 @@ class HomeController{
                 exit;
             }
         }
-
-
     }
-
-
 }
