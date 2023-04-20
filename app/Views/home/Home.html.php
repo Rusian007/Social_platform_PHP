@@ -174,7 +174,7 @@
 
             echo '  <div class="post">
             <div class="image-section">
-              <div class="img-user">';
+              <div >';
             if (!is_null($user["profile_picture"])) {
               echo '<img
                     src=' . $user["profile_picture"] . '
@@ -190,10 +190,15 @@
             }
 
             echo
-            '<h3 style="font-size: 15px;" >' . $user['username']  . ' </h3>
+
+              '</div>
+
+              <div class="img-user">
+                <h3 style="font-size: 13px;" >' . $user['username']  . ' </h3>
+                 <p style="font-size: 10px;"> <i style="margin-right: 2px;" class="fi-xnsuhl-calendar-clock-solid"></i> '. $post['date_posted'] .' </p>
               </div>
 
-              <i class="fi-xwsrxx-ellipsis"></i>
+              
             </div>
 
             <hr class="post-hr" />
@@ -497,6 +502,8 @@
 
    }
  </script>
+
+
 
 
  </html>
