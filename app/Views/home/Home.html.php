@@ -62,15 +62,13 @@
          <a href="#" class="close-btn" id="close-btn">X</a>
        </div>
 
-       <form method="post" action="/Social_platform_PHP/home/createPost" class="modal-body">
+       <form method="post" action="/Social_platform_PHP/home/createPost" class="modal-body" enctype="multipart/form-data">
          <div class="post-content">
 
            <input type="text" id="input-title" name="title" placeholder="Title*" required />
            <textarea id="textArea" name="textArea" type="textarea" placeholder="What's on your mind?" rows="5"></textarea>
-
+            <input type="file" name="picture" id="file" accept="image/*" />
            <div class="media-display">
-             <input type="file" name="picture" id="file" accept="image/*" />
-             <input type="hidden" name="uid" value="<?php echo $_SESSION['uid']; ?>" />
 
              <label for="file">
                <img src="upload.png" alt="error" />
@@ -176,11 +174,8 @@
             <div class="image-section">
               <div >';
             if (!is_null($user["profile_picture"])) {
-              echo '<img
-                    src=' . $user["profile_picture"] . '
-                    alt="Avatar"
-                    class="avatar post-avatar"
-                    />';
+             echo '<img src="' . $user["profile_picture"] . '" alt="Avatar" class="avatar post-avatar" />';
+
             } else {
               echo '<img
                   src="https://www.w3schools.com/howto/img_avatar2.png"
@@ -205,10 +200,18 @@
 
             <div class="post-content">
               <h3> ' . $post['post_title'] . ' </h3>
-              <p>' . $post['post_text'] . '</p>
-            </div>
-            <div class="post-btn">
+              <p style="margin-bottom: 5px;">' . $post['post_text'] . '</p>
               ';
+
+               if ($post["post_picture"] != "") {
+                echo '<img src="' . $post["post_picture"] . '" alt="A picture about the post" />';
+              }
+
+
+              echo '
+                </div>
+                <div class="post-btn">
+                ';
             if (is_null($reaction) || is_null($reaction['reaction_type'])) {
 
 
@@ -332,6 +335,7 @@
    input.addEventListener("change", () => {
      let reader = new FileReader();
      reader.readAsDataURL(input.files[0]);
+
      reader.addEventListener("load", () => {
        display.innerHTML = `<img src=${reader.result} alt=''/>`;
      });

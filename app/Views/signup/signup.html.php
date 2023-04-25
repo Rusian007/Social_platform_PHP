@@ -147,7 +147,7 @@ session_start();
                 </button>
             </div>
 
-            <a href="#" class="forgot" id="forgot-btn">Forgot Password?</a>
+             <a href="#" class="forgot" id="forgot-btn">Forgot Password?</a> 
         </form>
 
 

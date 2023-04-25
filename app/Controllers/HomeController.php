@@ -32,30 +32,79 @@ class HomeController
 
     public function createPost()
     {
+         session_start();
         $joined = date('Y-m-d');
         $post_body = $_POST['textArea'];
-        $uid = $_POST['uid'];
+        $uid =  $_SESSION['uid'];
         $title = $_POST['title'];
-        $picture = $_POST['picture'];
-
+        
         // create a new Database connection
         $handle = new db();
         $conn = $handle->connect();
 
-        // create a new post
+       
 
-        $stmt = $conn->prepare("INSERT INTO posts (post_text, post_picture, date_posted, date_updated, user_id, upvote_count, downvote_count, post_title) VALUES (?, ?, ?, ?, ?, 0, 0, ?)");
-        $stmt->bind_param("ssssis", $post_body, $picture, $joined, $joined, $uid, $title);
 
-        // Execute the SQL query
-        if ($stmt->execute()) {
-            header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
-        } else {
-            echo "Error:  <br>" . $conn->error;
-        }
+
+        // Check if the file was uploaded and no error found
+            if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+            
+                // Get the temporary file path and the original file name
+                $tmpFilePath = $_FILES['picture']['tmp_name'];
+                $fileName = basename($_FILES['picture']['name']);
+
+                // current directory path
+                $parentDirectoryPath = dirname(__FILE__);
+
+
+
+                // Set the destination file path
+                $uploadDir = $parentDirectoryPath. "/../upload/post_pics";
+                $destinationFilePath = $uploadDir . '/' . $fileName;
+
+                // Move the uploaded file to the destination
+                if (move_uploaded_file($tmpFilePath, $destinationFilePath)) {
+                    // The file was successfully moved to the destination - Save the link to the picture in the database
+
+
+                        
+                    // set a server file path (http:// )
+                    $serverFilePath =  $handle->baseUrl . $handle->PostUploadDir . '/' . $fileName;
+
+                    $stmt = $conn->prepare("INSERT INTO posts (post_text, post_picture, date_posted, date_updated, user_id, upvote_count, downvote_count, post_title) VALUES (?, ?, ?, ?, ?, 0, 0, ?)");
+                    $stmt->bind_param("ssssis", $post_body, $serverFilePath, $joined, $joined, $uid, $title);
+
+                    //$stmt = $conn->prepare('UPDATE `users` SET `profile_picture`= (?) WHERE `user_id` = ?');
+                   // $stmt->bind_param('si', $serverFilePath, $uid);
+                   // $stmt->execute();
+                    if ($stmt->execute()) {
+                        header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
+                    } else {
+                        echo "Error:  <br>" . $conn->error;
+                    }
+
+                }
+
+            } else{
+                 // create a new post
+
+                $stmt = $conn->prepare("INSERT INTO posts (post_text, date_posted, date_updated, user_id, upvote_count, downvote_count, post_title) VALUES (?, ?, ?, ?, 0, 0, ?)");
+                $stmt->bind_param("sssis", $post_body, $joined, $joined, $uid, $title);
+
+                if ($stmt->execute()) {
+                        header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
+                    } else {
+                        echo "Error:  <br>" . $conn->error;
+                    }
+            }
+
+        
+
+
 
         // Close the connection
         $conn->close();
+        exit;
     }
 
     public function UpdatePost()

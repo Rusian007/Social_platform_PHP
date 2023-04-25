@@ -191,6 +191,7 @@ input:focus {
 }
 
 .forgot {
+  display: none;
   margin: auto;
   text-decoration: underline;
 }
