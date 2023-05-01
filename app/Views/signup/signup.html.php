@@ -62,7 +62,7 @@ session_start();
         <div class="left-part">
             <section class="container">
                 <h2>WHY JOIN US ??</h2>
-                <p>Communicate with your peers and alumni to expand your network or get suggestions regarding your
+                <p>Communicate with your peers and alumni to expand your network or get suggestions regarding your
                     concerns here in North South Community (NSC) platform.</p>
             </section>
         </div>

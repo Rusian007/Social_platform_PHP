@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --black: #1a1a1a;
+    --yellow: #ffca1b;
+    --red: #ff4141;
+  }
+
+  /* Scrool */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgb(0 0 0 / 40%);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg,
+    black 20%, transparent 20%,
+    transparent 40%, white 40%,
+    white 60%, transparent 60%,
+    transparent 80%, black 80%);
+  }
+
+  .background {
+    width: 100%;
+    height: 50%;
+    z-index: -100;
+    
+    position: absolute;
+    top: 20%;
+    left: -120px;
+  }
+  
+ 
+  
+ .astronaut {
+  
+    width: 1000px;
+    height: 100vh;
+    border-radius: 50%;
+    filter: blur(100px);
+    background: radial-gradient(circle at bottom left, var(--red) 30%, var(--yellow) 60%);
+  }
+
+/*
+  .blurry{
+    position: absolute;
+    z-index: -100;
+    background-color: var(--yellow);
+    height: 5px;
+    width: 7px;
+    margin: 240px 0 40px 20px;
+    border-radius: 0 25px 240px;
+    box-shadow: 65px 13px 180px 180px var(--yellow);
+    filter: drop-shadow(90px 30px 100px var(--red));
+    transform: rotate(20deg);
+  }
+*/
+  body {
+    background-color: var(--black);
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  
+  /* Chat container */
+  .chat-container {
+   
+    border-radius: 10px;
+   
+    margin: 20px auto;
+    max-width: 80%;
+    overflow: hidden;
+    height: auto;
+  }
+  
+  /* Chat header */
+  .chat-header {    
+    color: #ffffff;
+    padding: 10px;
+  }
+  
+  /* Chat body */
+  .chat-body {
+    z-index: 999;
+    height: 83vh;
+    padding: 10px;
+    overflow:auto;
+    
+  }
+  
+  /* Message container */
+  .message-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Message */
+  .message {
+    margin: 10px 0;
+    overflow: hidden;
+    display: flex;
+  }
+  
+  /* Sender message */
+  .sender {
+    background-color: black;
+    border-radius: 20px 20px 0 20px;
+    color: #fff;
+    margin-right: 20px;
+    padding: 10px;
+    max-width: 60%;
+    align-self: flex-start;
+  }
+  
+  /* Receiver message */
+  .receiver {
+    background-color: #e0e0e0;
+    border-radius: 20px 20px 20px 0;
+    color: #000;
+    margin-left: auto;
+    padding: 10px;
+    max-width: 60%;
+    align-self: flex-end;
+  }
+  
+  /* Chat footer */
+  .chat-footer {
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    bottom: -0%;
+    padding: 10px;
+    background-color: #f6f6f6;
+    display: flex;
+    margin-top: auto;
+  }
+  
+  /* Chat input */
+  .chat-footer input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    flex: 1;
+    margin-right: 10px;
+    width: 80%;
+  }
+  
+  /* Chat submit button */
+  .chat-footer button[type="submit"] {
+    background-color: #ffffff;
+    border: 1px solid #373737;
+    border-radius: 3rem;
+    padding: auto;
+    line-height: 2rem;
+    width: 5rem;
+  }

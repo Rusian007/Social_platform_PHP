@@ -146,6 +146,7 @@
            <button class="create-btn btn" id="create-post-btn">Create</button>
 
            <button onclick="OnSearchClick()" class="create-btn btn">Search</button>
+           <button onclick="OnchatClick()" class="create-btn btn">Chat AI</button>
          </div>
 
          <div class="logout-btn">
@@ -359,6 +360,9 @@
 
    function OnSearchClick() {
      window.location.href = '/Social_platform_PHP/search/index'
+   }
+   function OnchatClick() {
+     window.location.href = '/Social_platform_PHP/chat/index'
    }
 
    function logout() {

@@ -3,6 +3,7 @@ require_once "app/Controllers/RegistrationController.php";
 require_once "app/Controllers/HomeController.php";
 require_once "app/Controllers/ProfileController.php";
 require_once "app/Controllers/SearchController.php";
+require_once "app/Controllers/ChatController.php";
 
 $request_uri = $_SERVER['REQUEST_URI'];
 
@@ -31,7 +32,7 @@ switch ($action_name) {
 		break;
 
   default:
-
+		
   	// Instantiate the controller and call the action method
 	$controller = new $controller_name();
 	$controller->$action_name($param);
