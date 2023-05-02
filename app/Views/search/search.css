@@ -19,6 +19,9 @@ html{
 body{
    
     background-color: var(--black);
+  
+}
+.main{
     display: flex;
     justify-content: center;
 }
