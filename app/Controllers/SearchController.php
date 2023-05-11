@@ -1,15 +1,13 @@
 <?php
 require_once 'db config.php';
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 3/29/2023
- * Time: 4:24 AM
- */
+require_once 'app/url.php';
+
 class SearchController
 {
     public function index(){
-        header('Location: '.'/Social_platform_PHP/app/Views/search/search.html.php');
+        $BaseClass = new Url();
+
+        header('Location: '. $BaseClass->base .'/app/Views/search/search.html.php');
         exit;
     }
 
@@ -40,13 +38,13 @@ class SearchController
     }
 
     public function showpost(){
-
+        $BaseClass = new Url();
         if(isset( $_GET['post_id'])){
                $postid = $_GET['post_id'];
                 session_start();
                $_SESSION['post_id'] = $postid;
                
-             header('Location: '.'/Social_platform_PHP/app/Views/search/searchpost.html.php');
+             header('Location: '. $BaseClass->base .'/app/Views/search/searchpost.html.php');
                
         } else{
             echo "Nothing Found !";

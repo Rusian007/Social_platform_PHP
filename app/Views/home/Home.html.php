@@ -18,7 +18,7 @@
 
 
    <?php
-
+    require_once '../../url.php';
     if (isset($_GET['notice'])) {
       $paramValue = $_GET['notice'];
       echo '<div class="notification">
@@ -29,9 +29,9 @@
     ?>
 
    <?php
-
+    $BaseClass = new Url();
     if (!isset($_SESSION['logged_in'])) {
-      header('Location: ' . '/Social_platform_PHP/registration/index');
+      header('Location: ' . $BaseClass->base . '/registration/index');
       exit;
     } else {
       require_once '../../../db config.php';
@@ -62,7 +62,7 @@
          <a href="#" class="close-btn" id="close-btn">X</a>
        </div>
 
-       <form method="post" action="/Social_platform_PHP/home/createPost" class="modal-body" enctype="multipart/form-data">
+       <form method="post" action=<?php echo ( $BaseClass->base ."/home/createPost"); ?> class="modal-body" enctype="multipart/form-data">
          <div class="post-content">
 
            <input type="text" id="input-title" name="title" placeholder="Title*" required />
@@ -398,7 +398,7 @@
 
 
        button.classList.add("light");
-
+     
        axios.get('http://localhost/Social_platform_PHP/home/UpdatePost/', {
            params: {
              PostID: postID,

@@ -2,7 +2,7 @@
 
 // requires the database connection file
 require_once 'db config.php';
-
+require_once 'app/url.php';
 
 
 // Class to handle form submission
@@ -40,7 +40,9 @@ class RegistrationController
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['uid'] = $row['user_id'];
                     $_SESSION['email'] = $email;
-                    header('Location: ' . '/Social_platform_PHP/home/index');
+
+                    $BaseClass = new Url();
+                    header('Location: ' . $BaseClass->base . '/home/index');
                 } else {
                     header('Location: ' . $this->location . 'signup/signup.html.php?error=Password do not match 😔 <br> If you used google sign up then please login with google');
 

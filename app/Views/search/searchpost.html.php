@@ -1,5 +1,5 @@
 <?php
-
+ require_once '../../url.php';
 session_start();
 ?>
 
@@ -17,9 +17,9 @@ session_start();
     <?php
       // TODO: use the post id to get the post
       //view the post using the template from home.html.php
-
+      $BaseClass = new Url();
         if (!isset($_SESSION['logged_in'])) {
-            header('Location: ' . '/Social_platform_PHP/registration/index');
+            header('Location: ' . $BaseClass->base . '/registration/index');
              exit;
         }
 

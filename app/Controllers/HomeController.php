@@ -3,6 +3,7 @@
 // requires the database connection file
 require_once 'db config.php';
 require_once 'oauth/vendor/autoload.php';
+require_once 'app/url.php';
 
 class HomeController
 {
@@ -13,8 +14,8 @@ class HomeController
         session_start();
         session_unset();
         session_destroy();
-
-        header('Location: ' . '/Social_platform_PHP/registration/index');
+        $BaseClass = new Url();
+        header('Location: ' . $BaseClass->base . '/registration/index');
     }
 
 
@@ -23,7 +24,8 @@ class HomeController
         session_start();
 
         if (isset($_SESSION['logged_in'])) {
-            header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php');
+            $BaseClass = new Url();
+            header('Location: ' . $BaseClass->base .  '/app/Views/home/Home.html.php');
             exit;
         } else {
             echo "Log in first";
@@ -78,7 +80,8 @@ class HomeController
                    // $stmt->bind_param('si', $serverFilePath, $uid);
                    // $stmt->execute();
                     if ($stmt->execute()) {
-                        header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
+                        $BaseClass = new Url();
+                        header('Location: ' . $BaseClass->base . '/app/Views/home/Home.html.php?notice=successfully created post');
                     } else {
                         echo "Error:  <br>" . $conn->error;
                     }
@@ -92,7 +95,8 @@ class HomeController
                 $stmt->bind_param("sssis", $post_body, $joined, $joined, $uid, $title);
 
                 if ($stmt->execute()) {
-                        header('Location: ' . '/Social_platform_PHP/app/Views/home/Home.html.php?notice=successfully created post');
+                    $BaseClass = new Url();
+                        header('Location: '  . $BaseClass->base . '/app/Views/home/Home.html.php?notice=successfully created post');
                     } else {
                         echo "Error:  <br>" . $conn->error;
                     }
@@ -234,11 +238,11 @@ class HomeController
 
         $clientID = $row["client_id"];
         $secret = $row["secret"];
-
+        $BaseClass = new Url();
         $gclient = new Google_Client();
         $gclient->setClientId($clientID);
         $gclient->setClientSecret($secret);
-        $gclient->setRedirectUri('http://localhost/Social_platform_PHP/home/oAuth/');
+        $gclient->setRedirectUri($handle ->baseUrl .''. $BaseClass->base .'/home/oAuth/');
         $gclient->addScope('email');
         $gclient->addScope('profile');
 
@@ -279,7 +283,7 @@ class HomeController
                     $_SESSION['email'] = $email;
                     $_SESSION['picture'] = $picture;
 
-                    header('Location: /Social_platform_PHP/app/Views/home/Home.html.php');
+                    header('Location: '. $BaseClass->base .'/app/Views/home/Home.html.php');
 
                     // close database connection
                     $conn->close();
@@ -301,7 +305,7 @@ class HomeController
                         $_SESSION['email'] = $email;
                         $_SESSION['picture'] = $picture;
                         $conn->close();
-                        header('Location: /Social_platform_PHP/app/Views/home/Home.html.php');
+                        header('Location: '. $BaseClass->base .'/app/Views/home/Home.html.php');
                         exit;
                     } else {
                         header('Location: ' . $this->location . 'signup/signup.html.php?error=Try again later');

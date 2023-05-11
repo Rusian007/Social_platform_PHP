@@ -26,8 +26,10 @@ session_start();
 <body>
 
     <?php
+     require_once '../../url.php';
+     $BaseClass = new Url();
     if (isset($_SESSION['logged_in'])) {
-        header('Location: ' . '/Social_platform_PHP/home/index');
+        header('Location: ' . $BaseClass->base . '/home/index');
         exit;
     }
     require_once '../../../db config.php';
@@ -48,7 +50,7 @@ session_start();
 
     <div class="header">
         <div class="logo">
-            <span> <img style="width: 40px; padding: 10px;" src="http://localhost/Social_platform_PHP/public/images/logo.svg"> </span>
+            <span> <img style="width: 40px; padding: 10px;" src=<?php echo($BaseClass->baseUrl ."/public/images/logo.svg"); ?> > </span>
             <span>Welcome to NSC</span>
         </div>
 
@@ -67,7 +69,7 @@ session_start();
             </section>
         </div>
 
-        <form class="right-part container" action="/Social_platform_PHP/registration/SignUpSubmit" method="post" id="signup-form">
+        <form class="right-part container" action= <?php echo( $BaseClass->base ."/registration/SignUpSubmit"); ?> method="post" id="signup-form">
             <div>
                 <h2 class="signupHeader">Sign Up</h2>
             </div>
@@ -113,7 +115,7 @@ session_start();
         $gclient = new Google_Client();
         $gclient->setClientId($clientID);
         $gclient->setClientSecret($secret);
-        $gclient->setRedirectUri('http://localhost/Social_platform_PHP/home/oAuth/');
+        $gclient->setRedirectUri($BaseClass->baseUrl . '/home/oAuth/');
         $gclient->addScope('email');
         $gclient->addScope('profile');
 

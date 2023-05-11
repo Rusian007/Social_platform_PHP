@@ -1,5 +1,5 @@
 <?php
-
+ require_once '../../url.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -34,8 +34,9 @@ session_start();
     </style>
 
     <?php
+     $BaseClass = new Url();
     if (!isset($_SESSION['logged_in'])) {
-        header('Location: ' . '/Social_platform_PHP/registration/index');
+        header('Location: ' . $BaseClass->base . '/registration/index');
         exit;
     }
     require_once '../../../db config.php';

@@ -2,6 +2,7 @@
 
 // requires the database connection file
 require_once 'db config.php';
+require_once 'app/url.php';
 
 class ProfileController
 {
@@ -68,7 +69,7 @@ class ProfileController
 
             }
             $conn->close();
-            header('Location: '.'/Social_platform_PHP/app/Views/profile/profile.html.php?notice=Updates Issued.<br> Changes will be applied from next login.');
+            header('Location: '. $this->location .'profile/profile.html.php?notice=Updates Issued.<br> Changes will be applied from next login.');
 
         } else {
             echo "Not allowed";
@@ -93,8 +94,9 @@ class ProfileController
             session_start();
             session_unset();
             session_destroy();
+             $BaseClass = new Url();
 
-            header('Location: '.'/Social_platform_PHP/registration/index');
+            header('Location: '. $BaseClass->base .'/registration/index');
 
         } else {
             echo "error: Try again Later";

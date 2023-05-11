@@ -1,5 +1,5 @@
 <?php
-
+ require_once '../../url.php';
 session_start();
 ?>
 <!DOCTYPE html>
@@ -54,8 +54,10 @@ session_start();
 <body>
 
   <?php
+
   if (!isset($_SESSION['logged_in'])) {
-    header('Location: ' . '/Social_platform_PHP/registration/index');
+    $BaseClass = new Url();
+    header('Location: ' . $BaseClass->base .'/registration/index');
     exit;
   }
   ?>
@@ -121,6 +123,7 @@ session_start();
 
       // send ajax req with inputValue
       if (RequestRouter === "GPT") {
+        //changeUrl
         url = "http://localhost/Social_platform_PHP/chat/GPTcontroller/";
 
       } else if (RequestRouter === "YOU") {
