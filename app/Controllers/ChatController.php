@@ -3,7 +3,7 @@ require_once 'db config.php';
 
 class ChatController
 {
-    public $location = "/Social_platform_PHP/app/Views/";
+    public $location = "/start/app/Views/";
 
     function index()
     {
@@ -15,6 +15,7 @@ class ChatController
     function GPTcontroller()
     {
         $userdata = $_POST['data'];
+       
         if (!isset($userdata) && $userdata == "")
             exit;
         // start db connection
@@ -28,7 +29,7 @@ class ChatController
         $secret = $row["secret"];
         $conn->close();
 
-        $url = 'https://chatgpt-api.shn.hk/v1/'; // Set the URL
+        $url = 'https://api.openai.com/v1/chat/completions'; // Set the URL
         $auth_code = $secret; // Set the authorization code
 
         $data = array(
@@ -38,7 +39,8 @@ class ChatController
                     'role' => 'user',
                     'content' => $userdata
                 )
-            )
+            ),
+             "temperature" => 0.7
         );  // Set the data to be sent in the request body
 
         // Create a stream context with the required options
@@ -46,8 +48,11 @@ class ChatController
             'http' => array(
                 'method' => 'POST',
                 'header' => "Content-Type: application/json\r\n" .
-                    "Authorization: $auth_code\r\n",
-                'content' => json_encode($data)
+                    "Authorization: $auth_code",
+                'content' => json_encode($data),
+                'timeout' => 60, // Set the timeout value in seconds (e.g., 60 seconds)
+                'ignore_errors' => true // Ignore HTTP errors and continue reading the response
+    
             )
         ));
 

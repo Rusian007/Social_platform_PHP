@@ -67,7 +67,7 @@
     </div>
     <script type="text/javascript">
         function goBack() {
-            window.location.href = '/Social_platform_PHP/home/index';
+            window.location.href = '/start/home/index';
         }
     </script>
     <script src="search.js"></script>

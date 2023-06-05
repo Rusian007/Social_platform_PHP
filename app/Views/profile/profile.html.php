@@ -124,7 +124,7 @@ if (isset($_GET['notice'])) {
             ?>
 
             <button onclick="UploadPicture()" class="edit-button" style="display: none;">Upload</button>
-            <form id="Update-Form" action="/Social_platform_PHP/profile/updateProfile" method="post"
+            <form id="Update-Form" action="/start/profile/updateProfile" method="post"
                   enctype="multipart/form-data">
                 <input type="file" id="file-input" name="profile-pic" style="display: none;" accept=".jpg,.jpeg,.png">
                 <input type="hidden" name="uid" value="<?php echo $uid; ?>">
@@ -163,7 +163,7 @@ if (isset($_GET['notice'])) {
         <button onclick="ProfileDelete()" class="btn btn-red">
             Delete
         </button>
-        <form id="delete-form" method="get" style="display: none;" action="http://localhost/Social_platform_PHP/profile/delete/">
+        <form id="delete-form" method="get" style="display: none;" action="http://localhost/start/profile/delete/">
             <input type="hidden" name="uid" value=<?php echo $_SESSION['uid']; ?> >
         </form>
     </div>
@@ -239,7 +239,7 @@ if (isset($_GET['notice'])) {
 <script type="text/javascript">
 
     function logout() {
-        axios.get('http://localhost/Social_platform_PHP/home/logout')
+        axios.get('http://localhost/start/home/logout')
             .then(function (response) {
                 // handle success
                 location.reload();
@@ -251,7 +251,7 @@ if (isset($_GET['notice'])) {
     }
 
     function OnHomeClick() {
-        window.location.href = '/Social_platform_PHP/home/index'
+        window.location.href = '/start/home/index'
     }
 
     var editOn = document.getElementById("edit-on");

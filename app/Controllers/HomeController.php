@@ -7,7 +7,7 @@ require_once 'app/url.php';
 
 class HomeController
 {
-    public $location = "/Social_platform_PHP/app/Views/";
+    public $location = "/start/app/Views/";
 
     public function logout()
     {

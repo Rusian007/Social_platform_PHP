@@ -29,13 +29,13 @@ document.getElementById('query').addEventListener('input', function() {
                 resultElement.textContent = result.post_title;
                 resultElement.onclick = function() {
                     var postId = this.dataset.postId;
-                    window.location.href = 'http://localhost/Social_platform_PHP/search/showpost/?post_id=' + postId;
+                    window.location.href = 'http://localhost/start/search/showpost/?post_id=' + postId;
                 };
                 resultsContainer.appendChild(resultElement);
             }
         }
     };
-    xhr.open('GET', 'http://localhost/Social_platform_PHP/search/search/?q=' + encodeURIComponent(query), true);
+    xhr.open('GET', 'http://localhost/start/search/search/?q=' + encodeURIComponent(query), true);
     xhr.send();
 });
 

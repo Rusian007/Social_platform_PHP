@@ -1,5 +1,5 @@
 <?php
- require_once '../../url.php';
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -54,10 +54,8 @@ session_start();
 <body>
 
   <?php
-
   if (!isset($_SESSION['logged_in'])) {
-    $BaseClass = new Url();
-    header('Location: ' . $BaseClass->base .'/registration/index');
+    header('Lochation: ' . '/start/registration/index');
     exit;
   }
   ?>
@@ -102,7 +100,7 @@ session_start();
 
   <script type="text/javascript">
     let container = document.getElementById("container");
-    let RequestRouter = "YOU";
+    let RequestRouter = "GPT";
     var xhr = new XMLHttpRequest();
     var url = "";
 
@@ -123,38 +121,49 @@ session_start();
 
       // send ajax req with inputValue
       if (RequestRouter === "GPT") {
-        //changeUrl
-        url = "http://localhost/Social_platform_PHP/chat/GPTcontroller/";
+        url = "http://localhost/start/chat/GPTcontroller/";
 
       } else if (RequestRouter === "YOU") {
-        url = "http://localhost/Social_platform_PHP/chat/YOUcontroller/";
+        url = "http://localhost/start/chat/GPTcontroller/";
       } else {
         alert("Request Not send, Error !")
         return;
       }
+      // receiver (user) stuffs
+    let messageNode = document.createElement('div');
+      messageNode.className = 'message';
+      messageNode.appendChild(receiverNode);
+      container.appendChild(messageNode);
+
+      // sender stuffs
+      let SenderNode = document.createElement('div');
+        let replyMessageNode = document.createElement('div');
+        SenderNode.className = 'sender';
+        SenderNode.textContent = "...";
+        replyMessageNode.className = 'message';
+        replyMessageNode.appendChild(SenderNode);
+        container.appendChild(replyMessageNode);
+      
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function() {
-        if (this.readyState == 4) {
 
+        if (this.readyState == 4 && xhr.status === 200) {
+       
+        
           var responseJSON = JSON.parse(this.responseText);
-
+            
 
           input.disabled = false;
           button.disabled = false;
 
           if (responseJSON.message !== null) {
-            let SenderNode = document.createElement('div');
-            SenderNode.className = 'sender';
-            SenderNode.textContent = responseJSON.message;
 
-            let replyMessageNode = document.createElement('div');
-            replyMessageNode.className = 'message';
-            replyMessageNode.appendChild(SenderNode);
+            var formattedMessage = responseJSON.message.replace(/\n/g, "<br>");
+            SenderNode.innerHTML = formattedMessage;
 
-            container.appendChild(replyMessageNode);
           } else {
-            alert("Server Overload !")
+            alert("Connection problem or invalid input token. Try again with differnt token.")
           }
 
         } else if( this.status >300){
@@ -168,10 +177,7 @@ session_start();
       var data = "data=" + inputValue;
       xhr.send(data);
 
-      let messageNode = document.createElement('div');
-      messageNode.className = 'message';
-      messageNode.appendChild(receiverNode);
-      container.appendChild(messageNode);
+     
 
     }
 
@@ -179,7 +185,7 @@ session_start();
       document.getElementById('pagestyle').setAttribute('href', sheet);
 
       if (sheet === 'oldchat.css') {
-        RequestRouter = "YOU"
+        RequestRouter = "GPT" //change here ;
       } else if (sheet === 'newchat.css') {
         RequestRouter = "GPT"
       }
@@ -189,8 +195,9 @@ session_start();
 
   <script type="text/javascript">
     function goBack() {
-      window.location.href = '/Social_platform_PHP/home/index';
+      window.lochation.href = '/start/home/index';
     }
+    console.clear();
   </script>
 
 

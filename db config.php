@@ -2,8 +2,8 @@
 
 Class db{
     public $baseUrl = 'http://localhost';
-    public $uploadDir = '/Social_platform_PHP/app/upload/profile_pics';
-    public $PostUploadDir = '/Social_platform_PHP/app/upload/post_pics';
+    public $uploadDir = '/start/app/upload/profile_pics';
+    public $PostUploadDir = '/start/app/upload/post_pics';
 
 
     public function connect(){

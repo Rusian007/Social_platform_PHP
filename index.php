@@ -28,8 +28,27 @@ $param = isset($segments[4]) ? $segments[4] : null;
 switch ($action_name) {
 	case(null):
 	//set default route
-		echo "OK";
+		$controller = new RegistrationController();
+        $controller->index();
 		break;
+    case("start"):
+        $controller_name = "ChatController";
+        $action_name = "index";
+        $controller = new $controller_name();
+	    $controller->$action_name($param);
+        break;
+    case("YOUcontroller"):
+        $controller_name = "ChatController";
+        $action_name = "YOUcontroller";
+        $controller = new $controller_name();
+	    $controller->$action_name($param);
+    break;
+    case("GPTcontroller"):
+        $controller_name = "ChatController";
+        $action_name = "GPTcontroller";
+        $controller = new $controller_name();
+	    $controller->$action_name($param);
+        break;
 
   default:
 		

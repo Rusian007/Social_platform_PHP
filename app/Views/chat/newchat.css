@@ -95,7 +95,7 @@
   /* Chat body */
   .chat-body {
     z-index: 999;
-    height: 83vh;
+    height: 80vh;
     padding: 10px;
     overflow:auto;
     

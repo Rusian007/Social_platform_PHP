@@ -71,7 +71,7 @@
            <div class="media-display">
 
              <label for="file">
-               <img src="upload.png" alt="error" />
+               <img src="upload.png"  />
                <h3>Upload picture</h3>
              </label>
            </div>
@@ -355,18 +355,18 @@
  <script src="https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js"></script>
  <script type="text/javascript">
    function OnProfileClick() {
-     window.location.href = '/Social_platform_PHP/profile/index'
+     window.location.href = '/start/profile/index'
    }
 
    function OnSearchClick() {
-     window.location.href = '/Social_platform_PHP/search/index'
+     window.location.href = '/start/search/index'
    }
    function OnchatClick() {
-     window.location.href = '/Social_platform_PHP/chat/index'
+     window.location.href = '/start/chat/index'
    }
 
    function logout() {
-     axios.get('http://localhost/Social_platform_PHP/home/logout')
+     axios.get('http://localhost/start/home/logout')
        .then(function(response) {
          // handle success
          location.reload();
@@ -399,7 +399,7 @@
 
        button.classList.add("light");
      
-       axios.get('http://localhost/Social_platform_PHP/home/UpdatePost/', {
+       axios.get('http://localhost/start/home/UpdatePost/', {
            params: {
              PostID: postID,
              vote: "DOWN",
@@ -428,7 +428,7 @@
 
        button.classList.remove("light");
 
-       axios.get('http://localhost/Social_platform_PHP/home/DownUpdatePost/', {
+       axios.get('http://localhost/start/home/DownUpdatePost/', {
            params: {
              PostID: postID,
              remove: "DOWN",
@@ -463,7 +463,7 @@
        downVoteBtn.disabled = true;
        downVoteBtn.classList.add("gray");
        button.classList.add("light");
-       axios.get('http://localhost/Social_platform_PHP/home/UpdatePost/', {
+       axios.get('http://localhost/start/home/UpdatePost/', {
            params: {
              PostID: postID,
              vote: "UP",
@@ -491,7 +491,7 @@
        downVoteBtn.classList.remove("gray");
        button.classList.remove("light");
 
-       axios.get('http://localhost/Social_platform_PHP/home/DownUpdatePost/', {
+       axios.get('http://localhost/start/home/DownUpdatePost/', {
            params: {
              PostID: postID,
              remove: "UP",
