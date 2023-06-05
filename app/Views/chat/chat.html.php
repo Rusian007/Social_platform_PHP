@@ -195,7 +195,7 @@ session_start();
 
   <script type="text/javascript">
     function goBack() {
-      window.lochation.href = '/start/home/index';
+      window.location.href = '/start/home/index';
     }
     console.clear();
   </script>
