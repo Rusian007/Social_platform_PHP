@@ -127,7 +127,7 @@ session_start();
         <a id="Oauth" style="display: none;" href="<?= $gclient->createAuthUrl() ?>"></a>
 
 
-        <form action="/Social_platform_PHP/registration/LoginSubmit" method="post" class="right-part container" id="login-form">
+        <form action="/start/registration/LoginSubmit" method="post" class="right-part container" id="login-form">
             <div>
                 <h2 class="signupHeader">Login</h2>
             </div>
